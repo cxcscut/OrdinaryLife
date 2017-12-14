@@ -57,6 +57,5 @@ G:\minigame_Tencent\Temp\bin\Debug\nunit.framework.xml
 G:\minigame_Tencent\Temp\bin\Debug\UnityEngine.Analytics.xml
 G:\minigame_Tencent\Temp\bin\Debug\UnityEngine.HoloLens.xml
 G:\minigame_Tencent\Temp\bin\Debug\UnityEngine.VR.xml
-G:\minigame_Tencent\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 G:\minigame_Tencent\obj\Debug\Assembly-CSharp.dll
 G:\minigame_Tencent\obj\Debug\Assembly-CSharp.pdb
