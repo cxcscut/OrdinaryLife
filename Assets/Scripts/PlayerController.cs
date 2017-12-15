@@ -7,11 +7,17 @@ public class PlayerController : MonoBehaviour {
 
 	public static int InteractiveScene;
 
+	// GameObject in currently active scene 
 	public Animator animator;
 	public new SpriteRenderer renderer;
 	public GameObject lying;
+	public GameObject player;
+	public GameObject close_highlight;
+	public GameObject draw_highlight;
+	public GameObject vase_highlight;
+	public GameObject labtop_highlight;
 
-	private int m_Progress;
+	public int m_Progress;
 	public float speed;
 	private bool facingRight;
 	private int CurrentScene;
@@ -20,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 	// Scene type
 	public const int SCENE_COLD = 1;
 	public const int SCENE_WARM = 2;
-	public const int PUZZLE_STAGE = 3;
+	public const int PUZZLE_STAGE_1 = 3;
 
 	// Animation type
 	public const int PLAYER_IDLE = 0;
@@ -40,10 +46,8 @@ public class PlayerController : MonoBehaviour {
 	public const int INTERACTIVE_TYPE_DRAWER = 2;
 	public const int INTERACTIVE_TYPE_VASE = 3;
 
-	PlayerController()
-	{
-		
-	}
+	// Distance of highlighting interactive widgets
+	private const float MIN_HIGHLIGHT_DISTANCE = 2.0f;
 
 	// @params : interactive type
 	// @return : void
@@ -55,8 +59,71 @@ public class PlayerController : MonoBehaviour {
 		InteractiveScene = type;
 
 		SwitchScene (SCENE_WARM);
+	}
 
+	// @params : two position coordinate
+	// @return : distance between two coordinates
+	// @brif : Computing distance between two coordinates
+	float SquareDistance(Vector3 vec1,Vector3 vec2)
+	{
+		return vec1.x * vec1.x + vec2.y * vec2.y + vec1.z * vec2.z;
+	}
 
+	// @params : void
+	// @return : void
+	// @brif : Highlight interactive widget if distance less than MIN_HIGHLIGHT_DISTANCE
+	void HighLightWidget()
+	{
+		SpriteRenderer highlighter_renderer;
+		if (SquareDistance (transform.position, close_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
+			// Display highlighter
+			highlighter_renderer = close_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = true;
+
+			// Play animation
+			close_highlight.GetComponent<Animator> ().Play ("close_highlight");
+
+		} else {
+			// Do not display highlighter
+			highlighter_renderer = close_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = false;
+		}
+		if (SquareDistance (transform.position, labtop_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
+			// Display highlighter
+			highlighter_renderer = labtop_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = true;
+
+			// Play animation
+			labtop_highlight.GetComponent<Animator> ().Play ("labtop_highlight");
+		} else {
+			// Do not display highlighter
+			highlighter_renderer = labtop_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = false;
+		}
+		if (SquareDistance (transform.position, draw_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
+			// Display highlighter
+			highlighter_renderer = draw_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = true;
+
+			// Play animation
+			draw_highlight.GetComponent<Animator> ().Play ("draw_highlight");
+		} else {
+			// Do not display highlighter
+			highlighter_renderer = draw_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = false;
+		}
+		if (SquareDistance (transform.position, vase_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
+			// Display highlighter
+			highlighter_renderer = vase_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = true;
+
+			// Play animation
+			vase_highlight.GetComponent<Animator> ().Play ("vase_highlight");
+		} else {
+			// Do not display highlighter
+			highlighter_renderer = vase_highlight.GetComponent<SpriteRenderer> ();
+			highlighter_renderer.enabled = false;
+		}
 	}
 
 	// @params : void
@@ -81,10 +148,11 @@ public class PlayerController : MonoBehaviour {
 			{
 			case SCENE_WARM:
 				if (!SceneManager.GetSceneByName ("Scene_warm").IsValid ()) {
-					SceneManager.LoadScene ("Scene_warm", LoadSceneMode.Additive);
+					renderer.enabled = false;
+					SceneManager.LoadScene ("Scene_warm",LoadSceneMode.Additive);
 				}					
 				break;
-			case PUZZLE_STAGE:
+			case PUZZLE_STAGE_1:
 				break;
 			default:
 				break;
@@ -116,7 +184,7 @@ public class PlayerController : MonoBehaviour {
 		transform.Translate (move_vector * speed);
 	}
 
-	// @params :  Player state type
+	// @params : Player state type
 	// @return : void
 	// @brif : Change current state of player and play corresponding animation
 	void SetPlayerState(int state)
@@ -135,31 +203,39 @@ public class PlayerController : MonoBehaviour {
 
 	void Start()
 	{
-		DontDestroyOnLoad (this);
+		// Get instance of GameObject
+		player = GameObject.Find ("Player");
+		lying = GameObject.Find("lying");
+		close_highlight = GameObject.Find("close_highlight");
+		labtop_highlight = GameObject.Find("labtop_highlight");
+		draw_highlight = GameObject.Find ("draw_highlight");
+		vase_highlight =GameObject.Find ("vase_highligh");
 
+		// Initialize variables
 		InteractiveScene = INTERACTIVE_TYPE_INVALID;
 		facingRight = false;
 		CurrentScene = SCENE_COLD;
 		WidgetActiveNum = 0;
 		playerState = PLAYER_IDLE;
+		m_Progress = INTERACTIVE_DISABLE;
 
+		// Get componnents' reference of Player 
 		animator = GetComponent<Animator> ();
 		renderer = GetComponent<SpriteRenderer> ();
-
-		m_Progress = INTERACTIVE_DISABLE;
 	}
 
 	void Update()
 	{
-
 		if (Input.GetKeyDown (KeyCode.F))
 			InteractiveCallback (INTERACTIVE_TYPE_VASE);
-
+		
 		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.D)) {
 			SetPlayerState (PLAYER_WALKING);
+
 			if (m_Progress == INTERACTIVE_ENABLE) {
 				renderer.enabled = true;
-				lying.SetActive (false);
+				if(lying != null)
+					lying.SetActive (false);
 			} else
 				m_Progress = INTERACTIVE_ENABLE;
 		} else

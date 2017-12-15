@@ -23,7 +23,8 @@ public class InteractiveScene : MonoBehaviour {
 	// @brif : Rollback to Scene_cold when 5s passed after PlayScene()
 	void SceneRollback()
 	{
-		SceneManager.SetActiveScene (SceneManager.GetSceneByName("Scene_cold"));
+		SceneManager.UnloadSceneAsync (SceneManager.GetSceneByName("Scene_warm"));
+		controller.renderer.enabled = true;
 	}
 
 	// @params : Scene type that is about to play
@@ -67,12 +68,18 @@ public class InteractiveScene : MonoBehaviour {
 	void Start () {
 
 		// Get reference of GameObject instance
-		player = GameObject.Find ("Player");
 		labtop = GameObject.Find ("labtop");
 		table = GameObject.Find ("table");
 		watchmovie = GameObject.Find ("watchmovie");
 		maketie = GameObject.Find ("maketie");
 		makeflower = GameObject.Find ("makeflower");
+		last_time = Time.time;
+
+		player = GameObject.Find ("Player");
+		if (player == null)
+			return;
+
+		player.GetComponent<SpriteRenderer> ().enabled = false;
 
 		// Get PlayerController script in Scene_warm
 		controller = (PlayerController)player.GetComponent (typeof(PlayerController));
@@ -80,16 +87,12 @@ public class InteractiveScene : MonoBehaviour {
 		// Play corresponding scene 
 		PlayScene(PlayerController.InteractiveScene);
 
-		player.SetActive (false);
-
-		last_time = Time.time;
 	}
-	
+		
 	// FixedUpdate is called in fixed time
 	void FixedUpdate () {
-
 		// Wait for 5s
-		if (Time.time - last_time >= 5.0f)
+		if (Time.time - last_time > 5.0f)
 			SceneRollback ();
 	}
 }
