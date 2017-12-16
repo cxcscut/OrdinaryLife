@@ -25,6 +25,7 @@ public class InteractiveScene : MonoBehaviour {
 	{
 		SceneManager.UnloadSceneAsync (SceneManager.GetSceneByName("Scene_warm"));
 		controller.renderer.enabled = true;
+
 	}
 
 	// @params : Scene type that is about to play
@@ -38,12 +39,12 @@ public class InteractiveScene : MonoBehaviour {
 			// Don't do anything, this should never happen
 			Debug.Log("INTERACTIVE_TYPE_INVALID passed to Scene_warm");
 			break;
-		case PlayerController.INTERACTIVE_TYPE_WARDROBE:
+		case PlayerController.INTERACTIVE_TYPE_CLOSE:
 			// Play Cleaning up tie scene
 			renderer = maketie.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;
 			break;
-		case PlayerController.INTERACTIVE_TYPE_LAPTOP:
+		case PlayerController.INTERACTIVE_TYPE_LABTOP:
 			// Play watching movie scene
 			renderer = table.GetComponent<SpriteRenderer> ();
 			renderer.enabled = false;

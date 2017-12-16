@@ -36,94 +36,26 @@ public class PlayerController : MonoBehaviour {
 	public const int INTERACTIVE_ENABLE = 1;
 	public const int INTERACTIVE_DISABLE = 0;
 
-	// Current player state
-	private int playerState;
-
 	// Interactive widget type
 	public const int INTERACTIVE_TYPE_INVALID = -1;
-	public const int INTERACTIVE_TYPE_WARDROBE = 0;
-	public const int INTERACTIVE_TYPE_LAPTOP = 1;
+	public const int INTERACTIVE_TYPE_CLOSE = 0;
+	public const int INTERACTIVE_TYPE_LABTOP = 1;
 	public const int INTERACTIVE_TYPE_DRAWER = 2;
 	public const int INTERACTIVE_TYPE_VASE = 3;
 
-	// Distance of highlighting interactive widgets
-	private const float MIN_HIGHLIGHT_DISTANCE = 2.0f;
+	// Current player state
+	private int playerState;
 
 	// @params : interactive type
 	// @return : void
 	// @brif : Callback function to trigger scene switch when player 
 	//		   click corresponding interactive widget
-	void InteractiveCallback(int type)
+	public void InteractiveCallback(int type)
 	{
 		WidgetActiveNum++;
 		InteractiveScene = type;
 
 		SwitchScene (SCENE_WARM);
-	}
-
-	// @params : two position coordinate
-	// @return : distance between two coordinates
-	// @brif : Computing distance between two coordinates
-	float SquareDistance(Vector3 vec1,Vector3 vec2)
-	{
-		return vec1.x * vec1.x + vec2.y * vec2.y + vec1.z * vec2.z;
-	}
-
-	// @params : void
-	// @return : void
-	// @brif : Highlight interactive widget if distance less than MIN_HIGHLIGHT_DISTANCE
-	void HighLightWidget()
-	{
-		SpriteRenderer highlighter_renderer;
-		if (SquareDistance (transform.position, close_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
-			// Display highlighter
-			highlighter_renderer = close_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = true;
-
-			// Play animation
-			close_highlight.GetComponent<Animator> ().Play ("close_highlight");
-
-		} else {
-			// Do not display highlighter
-			highlighter_renderer = close_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = false;
-		}
-		if (SquareDistance (transform.position, labtop_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
-			// Display highlighter
-			highlighter_renderer = labtop_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = true;
-
-			// Play animation
-			labtop_highlight.GetComponent<Animator> ().Play ("labtop_highlight");
-		} else {
-			// Do not display highlighter
-			highlighter_renderer = labtop_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = false;
-		}
-		if (SquareDistance (transform.position, draw_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
-			// Display highlighter
-			highlighter_renderer = draw_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = true;
-
-			// Play animation
-			draw_highlight.GetComponent<Animator> ().Play ("draw_highlight");
-		} else {
-			// Do not display highlighter
-			highlighter_renderer = draw_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = false;
-		}
-		if (SquareDistance (transform.position, vase_highlight.transform.position) <= MIN_HIGHLIGHT_DISTANCE) {
-			// Display highlighter
-			highlighter_renderer = vase_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = true;
-
-			// Play animation
-			vase_highlight.GetComponent<Animator> ().Play ("vase_highlight");
-		} else {
-			// Do not display highlighter
-			highlighter_renderer = vase_highlight.GetComponent<SpriteRenderer> ();
-			highlighter_renderer.enabled = false;
-		}
 	}
 
 	// @params : void
@@ -209,7 +141,7 @@ public class PlayerController : MonoBehaviour {
 		close_highlight = GameObject.Find("close_highlight");
 		labtop_highlight = GameObject.Find("labtop_highlight");
 		draw_highlight = GameObject.Find ("draw_highlight");
-		vase_highlight =GameObject.Find ("vase_highligh");
+		vase_highlight =GameObject.Find ("vase_highlight");
 
 		// Initialize variables
 		InteractiveScene = INTERACTIVE_TYPE_INVALID;
@@ -226,25 +158,25 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyDown (KeyCode.F))
-			InteractiveCallback (INTERACTIVE_TYPE_VASE);
 		
 		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.D)) {
 			SetPlayerState (PLAYER_WALKING);
 
 			if (m_Progress == INTERACTIVE_ENABLE) {
 				renderer.enabled = true;
-				if(lying != null)
+				if (lying != null)
 					lying.SetActive (false);
-			} else
+			} else {
 				m_Progress = INTERACTIVE_ENABLE;
+			
+			}
 		} else
 			SetPlayerState (PLAYER_IDLE);
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		
+
 		switch (playerState) {
 		case PLAYER_IDLE:
 			break;
