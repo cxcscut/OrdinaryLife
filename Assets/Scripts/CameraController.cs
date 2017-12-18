@@ -5,9 +5,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
 	public GameObject player;
-	private Vector3 offset;
-	private GUILayer gui_layer;
 	private new Camera camera;
+	private GameObject background;
+
+	private float bound_min,bound_max;
+	private float camera_width;
 
 	private const int CLOSE_WIDGET_CLICKED = 0;
 	private const int LABTOP_WIDGET_CLICKED = 1;
@@ -60,19 +62,39 @@ public class CameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		gui_layer = GetComponent<GUILayer> ();
+		background = GameObject.Find ("background_cold");
+
+		bound_min = -background.GetComponent<SpriteRenderer> ().bounds.size.x / 2 + background.transform.position.x;
+		bound_max = background.GetComponent<SpriteRenderer> ().bounds.size.x / 2 + background.transform.position.x;
+
+		Debug.Log (bound_min);
+		Debug.Log (bound_max);
 
 		camera = GetComponent<Camera> ();
-		offset = transform.position - player.transform.position;
+		camera_width = 2 * camera.orthographicSize * camera.aspect;
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		if(player != null)
+			transform.position = new Vector3 (player.transform.position.x,transform.position.y,transform.position.z);
+
+		float camera_min = -camera_width / 2 + transform.position.x;
+		float camera_max = camera_width / 2 + transform.position.x;
+
+		Debug.Log (camera_min);
+		Debug.Log (camera_max);
+	
+		if (camera_min < bound_min)
+			transform.position = new Vector3 (bound_min + camera_width/2,transform.position.y,transform.position.z);
 		
-		transform.position = player.transform.position + offset;
+		if(camera_max > bound_max)
+			transform.position = new Vector3 (bound_max - camera_width/2,transform.position.y,transform.position.z);
 
 		if (Input.touchCount > 0 || Input.GetMouseButtonDown (0)) {
 			Vector3 pos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0.0f));
+			Debug.Log (new Vector2(pos.x,pos.y));
 			ForwardClick (new Vector2(pos.x,pos.y));
 		}
 	}

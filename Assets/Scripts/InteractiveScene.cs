@@ -39,11 +39,13 @@ public class InteractiveScene : MonoBehaviour {
 			// Don't do anything, this should never happen
 			Debug.Log("INTERACTIVE_TYPE_INVALID passed to Scene_warm");
 			break;
+
 		case PlayerController.INTERACTIVE_TYPE_CLOSE:
 			// Play Cleaning up tie scene
 			renderer = maketie.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;
 			break;
+
 		case PlayerController.INTERACTIVE_TYPE_LABTOP:
 			// Play watching movie scene
 			renderer = table.GetComponent<SpriteRenderer> ();
@@ -55,11 +57,13 @@ public class InteractiveScene : MonoBehaviour {
 			renderer = watchmovie.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;
 			break;
+
 		case PlayerController.INTERACTIVE_TYPE_VASE:
 			// Play arranging flower scene
 			renderer = makeflower.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;
 			break;
+
 		default :
 			break;
 		}
@@ -89,7 +93,7 @@ public class InteractiveScene : MonoBehaviour {
 		PlayScene(PlayerController.InteractiveScene);
 
 	}
-		
+
 	// FixedUpdate is called in fixed time
 	void FixedUpdate () {
 		// Wait for 5s

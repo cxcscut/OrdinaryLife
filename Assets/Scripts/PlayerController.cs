@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour {
 	// Scene type
 	public const int SCENE_COLD = 1;
 	public const int SCENE_WARM = 2;
-	public const int PUZZLE_STAGE_1 = 3;
+	public const int SCENE_DIRAY = 3;
+	public const int PUZZLE_STAGE_1 = 4;
 
 	// Animation type
 	public const int PLAYER_IDLE = 0;
@@ -55,7 +56,10 @@ public class PlayerController : MonoBehaviour {
 		WidgetActiveNum++;
 		InteractiveScene = type;
 
-		SwitchScene (SCENE_WARM);
+		if (type == INTERACTIVE_TYPE_DRAWER)
+			SwitchScene (SCENE_DIRAY);
+		else
+			SwitchScene (SCENE_WARM);
 	}
 
 	// @params : void
@@ -83,6 +87,10 @@ public class PlayerController : MonoBehaviour {
 					renderer.enabled = false;
 					SceneManager.LoadScene ("Scene_warm",LoadSceneMode.Additive);
 				}					
+				break;
+			case SCENE_DIRAY:
+				DontDestroyOnLoad (GameObject.Find("Main Camera"));
+				SceneManager.LoadScene ("Diary");
 				break;
 			case PUZZLE_STAGE_1:
 				break;
