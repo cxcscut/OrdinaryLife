@@ -9,8 +9,10 @@ public class ButtonController : MonoBehaviour {
 	public GameObject start_clicked;
 	public GameObject exit_clicked;
 
-	private const int HIGHLIGHT_ENABLED = 0;
-	private const int HIGHLIGHT_DISABLED = 1;
+	private const int START_HIGHLIGHT_ENABLED = 1;
+	private const int EXIT_HIGHLIGHT_ENABLED = 2;
+	private const int HIGHLIGHT_DISABLED = 3;
+
 	private const int START_BUTTON = 1;
 	private const int EXIT_BUTTON = 0;
 	private const int BUTTON_CLICKED = 0;
@@ -19,7 +21,8 @@ public class ButtonController : MonoBehaviour {
 	private Vector3 click_offset = new Vector3(0.1f,-0.1f,0.0f);
 	private int start_button_state;
 	private int exit_button_state;
-	private int highlight_state;
+	private int start_highlight_state;
+	private int exit_highlight_state;
 	public Rect start_rect, exit_rect;
 
 	public new Camera camera;
@@ -63,7 +66,7 @@ public class ButtonController : MonoBehaviour {
 	// @brif : Message handler of clicking event on start button
 	void OnStartButton()
 	{
-		SceneManager.LoadScene ("Scene_cold");
+		StartCoroutine(GetComponent<SceneFadeInOut> ().Fading ("Scene_cold"));
 	}
 
 	// @params : void
@@ -80,7 +83,8 @@ public class ButtonController : MonoBehaviour {
 
 		start_button_state = BUTTON_RELEASED;
 		exit_button_state = BUTTON_RELEASED;
-		highlight_state = HIGHLIGHT_DISABLED;
+		start_highlight_state = HIGHLIGHT_DISABLED;
+		exit_highlight_state = HIGHLIGHT_DISABLED;
 
 		start_rect = new Rect (
 			start.transform.position.x - start.GetComponent<SpriteRenderer>().bounds.size.x / 2,
@@ -95,9 +99,7 @@ public class ButtonController : MonoBehaviour {
 			exit.GetComponent<SpriteRenderer>().bounds.size.x,
 			-exit.GetComponent<SpriteRenderer>().bounds.size.y
 		);
-
-		Debug.Log (start_rect);
-		Debug.Log (exit_rect);
+			
 	}
 
 	// Update is called once per frame
@@ -113,36 +115,36 @@ public class ButtonController : MonoBehaviour {
 			start.SetActive (false);
 			start_clicked.SetActive (true);
 
-			highlight_state = HIGHLIGHT_ENABLED;
-
+			start_highlight_state = START_HIGHLIGHT_ENABLED;
 		} else {
 			start.SetActive (true);
 			start_clicked.SetActive (false);
+
+			start_highlight_state = HIGHLIGHT_DISABLED;
 		}
-
-		if (highlight_state == HIGHLIGHT_ENABLED && Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) {
-			// Clicking start button
-			Debug.Log("Start button clicked");
-			start_button_state = BUTTON_CLICKED;
-
-			ButtonPressed (START_BUTTON);
-		}
-
 		if (exit_rect.Contains (new Vector2(mouse_pos.x,mouse_pos.y),true) ||
 			exit_rect.Contains(new Vector2(touch_pos.x,touch_pos.y),true)) {
 
 			exit.SetActive (false);
 			exit_clicked.SetActive (true);
 
-			highlight_state = HIGHLIGHT_ENABLED;
+			exit_highlight_state = EXIT_HIGHLIGHT_ENABLED;
 		} else {
 			exit.SetActive (true);
 			exit_clicked.SetActive (false);
+
+			exit_highlight_state = HIGHLIGHT_DISABLED;
 		}
 
-		if (highlight_state == HIGHLIGHT_ENABLED && Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) {
+		if (start_highlight_state == START_HIGHLIGHT_ENABLED && Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) {
+			// Clicking start button
+			start_button_state = BUTTON_CLICKED;
+
+			ButtonPressed (START_BUTTON);
+		}
+
+		if (exit_highlight_state == EXIT_HIGHLIGHT_ENABLED && Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) {
 			// Clicking exit button
-			Debug.Log("Exit button clicked");
 
 			exit_button_state = BUTTON_CLICKED;
 
@@ -150,21 +152,23 @@ public class ButtonController : MonoBehaviour {
 		}
 
 		if (start_button_state == BUTTON_CLICKED && Input.GetMouseButtonUp (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended)) {
-			Debug.Log ("Start button released");
 
 			start_button_state = BUTTON_RELEASED;
 
 			ButtonReleased (START_BUTTON);
 
+			start_button_state = BUTTON_RELEASED;
+
 			OnStartButton ();
 		}
 
 		if (exit_button_state == BUTTON_CLICKED && Input.GetMouseButtonUp (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended)) {
-			Debug.Log ("Exit button released");
 
 			exit_button_state = BUTTON_RELEASED;
 
 			ButtonReleased (EXIT_BUTTON);
+
+			exit_button_state = BUTTON_RELEASED;
 
 			OnExitButton ();
 		}

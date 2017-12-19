@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
 	public static int InteractiveScene;
-
+	public Image fade_image;
 	// GameObject in currently active scene 
 	public Animator animator;
 	public new SpriteRenderer renderer;
@@ -21,13 +22,12 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	private bool facingRight;
 	private int CurrentScene;
-	private int WidgetActiveNum;
+	public int WidgetActiveNum;
 
 	// Scene type
 	public const int SCENE_COLD = 1;
 	public const int SCENE_WARM = 2;
 	public const int SCENE_DIRAY = 3;
-	public const int PUZZLE_STAGE_1 = 4;
 
 	// Animation type
 	public const int PLAYER_IDLE = 0;
@@ -47,6 +47,15 @@ public class PlayerController : MonoBehaviour {
 	// Current player state
 	private int playerState;
 
+	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.LoadScene (Scene_name,mode);
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
+
 	// @params : interactive type
 	// @return : void
 	// @brif : Callback function to trigger scene switch when player 
@@ -55,6 +64,35 @@ public class PlayerController : MonoBehaviour {
 	{
 		WidgetActiveNum++;
 		InteractiveScene = type;
+
+		switch (type) {
+		case INTERACTIVE_TYPE_CLOSE:
+			if (!close_highlight.GetComponent<CloseHighlighter> ().NotUsed)
+				close_highlight.GetComponent<CloseHighlighter> ().NotUsed = true;
+			else
+				return;
+			break;
+		case INTERACTIVE_TYPE_DRAWER:
+			if (!draw_highlight.GetComponent<DrawHighLigter> ().NotUsed)
+				draw_highlight.GetComponent<DrawHighLigter> ().NotUsed = true;
+			else
+				return;
+			break;
+		case INTERACTIVE_TYPE_LABTOP:
+			if (!labtop_highlight.GetComponent<LabtopHighlighter> ().NotUsed )
+				labtop_highlight.GetComponent<LabtopHighlighter> ().NotUsed = true;
+			else
+				return;
+			break;
+		case INTERACTIVE_TYPE_VASE:
+			if(!vase_highlight.GetComponent<VaseHighligher> ().NotUsed)
+				vase_highlight.GetComponent<VaseHighligher> ().NotUsed = true;
+			else
+				return;
+			break;
+		default:
+			break;
+		}
 
 		if (type == INTERACTIVE_TYPE_DRAWER)
 			SwitchScene (SCENE_DIRAY);
@@ -84,15 +122,12 @@ public class PlayerController : MonoBehaviour {
 			{
 			case SCENE_WARM:
 				if (!SceneManager.GetSceneByName ("Scene_warm").IsValid ()) {
-					renderer.enabled = false;
-					SceneManager.LoadScene ("Scene_warm",LoadSceneMode.Additive);
+					StartCoroutine (Fading("Scene_warm",LoadSceneMode.Additive));
 				}					
 				break;
 			case SCENE_DIRAY:
-				DontDestroyOnLoad (GameObject.Find("Main Camera"));
-				SceneManager.LoadScene ("Diary");
-				break;
-			case PUZZLE_STAGE_1:
+				DontDestroyOnLoad (GameObject.Find ("Main Camera"));
+				StartCoroutine (GameObject.Find ("background_cold").GetComponent<SceneFadeInOut> ().Fading ("Diary"));
 				break;
 			default:
 				break;
@@ -150,12 +185,12 @@ public class PlayerController : MonoBehaviour {
 		labtop_highlight = GameObject.Find("labtop_highlight");
 		draw_highlight = GameObject.Find ("draw_highlight");
 		vase_highlight =GameObject.Find ("vase_highlight");
+		WidgetActiveNum = 0;
 
 		// Initialize variables
 		InteractiveScene = INTERACTIVE_TYPE_INVALID;
 		facingRight = false;
 		CurrentScene = SCENE_COLD;
-		WidgetActiveNum = 0;
 		playerState = PLAYER_IDLE;
 		m_Progress = INTERACTIVE_DISABLE;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InteractiveScene : MonoBehaviour {
 
@@ -12,20 +13,40 @@ public class InteractiveScene : MonoBehaviour {
 	public GameObject maketie;
 	public GameObject makeflower;
 
+	public Image fade_image;
+
 	private new SpriteRenderer renderer;
 
 	private float last_time;
 
 	public PlayerController controller;
 
+	IEnumerator FadingUnload(string Scene_name)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.UnloadSceneAsync (SceneManager.GetSceneByName(Scene_name));
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
+
+
+	void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+	{
+		GameObject.Find ("Player").GetComponent<SpriteRenderer> ().enabled = false;
+	}
+
+	void OnSceneunLoaded(Scene scene,LoadSceneMode mode)
+	{
+		GameObject.Find ("Player").GetComponent<SpriteRenderer> ().enabled = true;
+	}
+
 	// @params : void
 	// @return : void
 	// @brif : Rollback to Scene_cold when 5s passed after PlayScene()
 	void SceneRollback()
 	{
-		SceneManager.UnloadSceneAsync (SceneManager.GetSceneByName("Scene_warm"));
-		controller.renderer.enabled = true;
-
+		StartCoroutine (FadingUnload("Scene_warm"));
 	}
 
 	// @params : Scene type that is about to play
@@ -71,7 +92,7 @@ public class InteractiveScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		// Get reference of GameObject instance
 		labtop = GameObject.Find ("labtop");
 		table = GameObject.Find ("table");
@@ -84,14 +105,11 @@ public class InteractiveScene : MonoBehaviour {
 		if (player == null)
 			return;
 
-		player.GetComponent<SpriteRenderer> ().enabled = false;
-
 		// Get PlayerController script in Scene_warm
 		controller = (PlayerController)player.GetComponent (typeof(PlayerController));
 
 		// Play corresponding scene 
 		PlayScene(PlayerController.InteractiveScene);
-
 	}
 
 	// FixedUpdate is called in fixed time

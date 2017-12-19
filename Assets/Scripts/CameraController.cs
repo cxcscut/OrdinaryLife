@@ -30,32 +30,44 @@ public class CameraController : MonoBehaviour {
 		if (DrawHighLigter.frame.Contains (position,true) && DrawHighLigter.m_CurrentState) {
 			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_DRAWER);
 
-			// Do not display highlighter
-			GameObject.Find ("draw_highlight").GetComponent<SpriteRenderer>().enabled = false;
+			GameObject draw = GameObject.Find ("draw_highlight");
+
+			if(draw != null)
+				// Do not display highlighter
+				draw.GetComponent<SpriteRenderer>().enabled = false;
 		}
 
 		// Click on close
 		if (CloseHighlighter.frame.Contains (position,true) && CloseHighlighter.m_CurrentState) {
 			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_CLOSE);
 
-			// Do not display highlighter
-			GameObject.Find ("close_highlight").GetComponent<SpriteRenderer>().enabled = false;
+			GameObject close = GameObject.Find ("close_highlight");
+
+			if(close != null)
+				// Do not display highlighter
+				GameObject.Find ("close_highlight").GetComponent<SpriteRenderer>().enabled = false;
 		}
 
 		// Click on labtop
 		if (LabtopHighlighter.frame.Contains (position,true) && LabtopHighlighter.m_CurrentState) {
 			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_LABTOP);
 
-			// Do not display highlighter
-			GameObject.Find ("labtop_highlight").GetComponent<SpriteRenderer>().enabled = false;
+			GameObject labtop = GameObject.Find ("labtop_highlight");
+
+			if(labtop != null)
+				// Do not display highlighter
+				GameObject.Find ("labtop_highlight").GetComponent<SpriteRenderer>().enabled = false;
 		}
 
 		// Click on vase
 		if (VaseHighligher.frame.Contains (position,true) && VaseHighligher.m_CurrentState) {
 			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_VASE);
 
-			// Do not display highlighter
-			GameObject.Find ("vase_highlight").GetComponent<SpriteRenderer>().enabled = false;
+			GameObject vase = GameObject.Find ("vase_highlight");
+
+			if(vase != null)
+				// Do not display highlighter
+				GameObject.Find ("vase_highlight").GetComponent<SpriteRenderer>().enabled = false;
 		}
 	}
 
@@ -66,9 +78,6 @@ public class CameraController : MonoBehaviour {
 
 		bound_min = -background.GetComponent<SpriteRenderer> ().bounds.size.x / 2 + background.transform.position.x;
 		bound_max = background.GetComponent<SpriteRenderer> ().bounds.size.x / 2 + background.transform.position.x;
-
-		Debug.Log (bound_min);
-		Debug.Log (bound_max);
 
 		camera = GetComponent<Camera> ();
 		camera_width = 2 * camera.orthographicSize * camera.aspect;
@@ -82,9 +91,6 @@ public class CameraController : MonoBehaviour {
 
 		float camera_min = -camera_width / 2 + transform.position.x;
 		float camera_max = camera_width / 2 + transform.position.x;
-
-		Debug.Log (camera_min);
-		Debug.Log (camera_max);
 	
 		if (camera_min < bound_min)
 			transform.position = new Vector3 (bound_min + camera_width/2,transform.position.y,transform.position.z);

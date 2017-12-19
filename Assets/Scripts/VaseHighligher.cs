@@ -9,7 +9,7 @@ public class VaseHighligher : MonoBehaviour {
 	public Animator animator;
 
 	public static bool m_CurrentState;
-
+	public bool NotUsed = false;
 	public static Rect frame = new Rect(0.9f,-1.0f,0.6f,-1.1f);
 
 	// Use this for initialization
@@ -24,13 +24,15 @@ public class VaseHighligher : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Mathf.Abs (player.transform.position.x - transform.position.x) <= 0.6f) {
-			renderer.enabled = true;
-			animator.Play ("vase_highlight");
-			m_CurrentState = true;
-		} else {
-			renderer.enabled = false;
-			m_CurrentState = false;
+		if (!NotUsed) {
+			if (Mathf.Abs (player.transform.position.x - transform.position.x) <= 0.6f) {
+				renderer.enabled = true;
+				animator.Play ("vase_highlight");
+				m_CurrentState = true;
+			} else {
+				renderer.enabled = false;
+				m_CurrentState = false;
+			}
 		}
 	}
 }

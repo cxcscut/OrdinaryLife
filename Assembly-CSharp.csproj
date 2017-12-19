@@ -49,12 +49,13 @@
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\CloseHighlighter.cs" />
-     <Compile Include="Assets\Scripts\DiarySceneController.cs" />
      <Compile Include="Assets\Scripts\DiaryTexRolling.cs" />
      <Compile Include="Assets\Scripts\DrawHighLigter.cs" />
+     <Compile Include="Assets\Scripts\FadingController.cs" />
      <Compile Include="Assets\Scripts\InteractiveScene.cs" />
      <Compile Include="Assets\Scripts\LabtopHighlighter.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SceneFadeInOut.cs" />
      <Compile Include="Assets\Scripts\VaseHighligher.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>G:/Unity3D/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

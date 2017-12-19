@@ -8,6 +8,10 @@ public class DrawHighLigter : MonoBehaviour {
 	public GameObject player;
 	public Animator animator;
 
+	public bool NotUsed = false;
+
+	private const int MIN_ACTIVE_WIDGET = 2;
+
 	public static bool m_CurrentState;
 
 	public static Rect frame = new Rect (-2.2f,-0.9f,1.3f,-0.4f);
@@ -24,13 +28,15 @@ public class DrawHighLigter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Mathf.Abs (player.transform.position.x - transform.position.x) <= 0.6f) {
-			renderer.enabled = true;
-			animator.Play ("draw_highlight");
-			m_CurrentState = true;
-		} else {
-			renderer.enabled = false;
-			m_CurrentState = false;
+		if (player.GetComponent<PlayerController> ().WidgetActiveNum >= MIN_ACTIVE_WIDGET && !NotUsed) {
+			if (Mathf.Abs (player.transform.position.x - transform.position.x) <= 0.6f) {
+				renderer.enabled = true;
+				animator.Play ("draw_highlight");
+				m_CurrentState = true;
+			} else {
+				renderer.enabled = false;
+				m_CurrentState = false;
+			}
 		}
 	}
 }
