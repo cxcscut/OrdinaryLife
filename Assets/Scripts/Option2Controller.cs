@@ -8,6 +8,8 @@ public class Option2Controller : MonoBehaviour {
 
 	public new Camera camera;
 
+	public GameObject option2_clicked;
+
 	// Use this for initialization
 	void Start () {
 
@@ -42,6 +44,7 @@ public class Option2Controller : MonoBehaviour {
 					GlobalVariables.Shot5Finished = true;
 					GlobalVariables.Shot9Active = false;
 
+					option2_clicked.GetComponent<SpriteRenderer> ().enabled = true;
 					OnPress ();
 					Debug.Log ("Clicked on option2");
 				}

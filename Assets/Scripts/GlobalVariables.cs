@@ -38,10 +38,18 @@ public class GlobalVariables : MonoBehaviour {
 
 	public const float fading_speed = 0.5f;
 
+	// Chapter #1
+	public static bool LightGameFinished = false;
+
+	// Wechat game stage
+	public static float TextInterval = 1.0f;
+
+	// Chapter #2
 	public static bool Shot4Finished = false;
 	public static bool Shot5Finished = false;
 	public static bool Shot9Active = false;
 	public static bool Shot4Active = false;
+	public static bool WechatGameActive = false;
 
 	// Scores
 	public static float TotalScores = 0.0f;

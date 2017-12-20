@@ -48,6 +48,12 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Chapter1Shot1Reactor.cs" />
+     <Compile Include="Assets\Scripts\Chapter1Shot5Reactor.cs" />
+     <Compile Include="Assets\Scripts\Chapter1StageController.cs" />
+     <Compile Include="Assets\Scripts\Chapter2Shot4Interactive.cs" />
+     <Compile Include="Assets\Scripts\Chapter2Stage1Controller.cs" />
+     <Compile Include="Assets\Scripts\Chapter2Stage2Controller.cs" />
      <Compile Include="Assets\Scripts\CloseHighlighter.cs" />
      <Compile Include="Assets\Scripts\DiaryTexRolling.cs" />
      <Compile Include="Assets\Scripts\DrawHighLigter.cs" />
@@ -57,12 +63,11 @@
      <Compile Include="Assets\Scripts\LabtopHighlighter.cs" />
      <Compile Include="Assets\Scripts\Option1Controller.cs" />
      <Compile Include="Assets\Scripts\Option2Controller.cs" />
+     <Compile Include="Assets\Scripts\Option3Controller.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SceneFadeInOut.cs" />
-     <Compile Include="Assets\Scripts\Shot4Interactive.cs" />
-     <Compile Include="Assets\Scripts\Stage1Controller.cs" />
-     <Compile Include="Assets\Scripts\Stage2Controller.cs" />
      <Compile Include="Assets\Scripts\VaseHighligher.cs" />
+     <Compile Include="Assets\Scripts\WechatGameStageController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>G:/Unity3D/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

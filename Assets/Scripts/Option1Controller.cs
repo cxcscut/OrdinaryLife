@@ -8,6 +8,8 @@ public class Option1Controller : MonoBehaviour {
 
 	public new Camera camera;
 
+	public GameObject option
+
 	// Use this for initialization
 	void Start () {
 
