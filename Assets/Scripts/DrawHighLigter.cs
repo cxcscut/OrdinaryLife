@@ -12,7 +12,7 @@ public class DrawHighLigter : MonoBehaviour {
 
 	public static bool m_CurrentState;
 
-	public static Rect frame = new Rect (-2.2f,-0.9f,1.3f,-0.4f);
+	public static Rect frame;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +22,13 @@ public class DrawHighLigter : MonoBehaviour {
 
 		animator = GetComponent<Animator> ();
 		renderer = GetComponent<SpriteRenderer> ();
+
+		frame = new Rect (
+			transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2,
+			transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2,
+			GetComponent<SpriteRenderer>().bounds.size.x,
+			-GetComponent<SpriteRenderer>().bounds.size.y
+		);
 	}
 	
 	// Update is called once per frame
