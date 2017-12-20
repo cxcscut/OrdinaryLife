@@ -18,31 +18,13 @@ public class PlayerController : MonoBehaviour {
 	public GameObject vase_highlight;
 	public GameObject labtop_highlight;
 
+	public SpriteRenderer left_arrow_renderer, right_arrow_renderer;
+
 	public int m_Progress;
 	public float speed;
 	private bool facingRight;
 	private int CurrentScene;
 	public int WidgetActiveNum;
-
-	// Scene type
-	public const int SCENE_COLD = 1;
-	public const int SCENE_WARM = 2;
-	public const int SCENE_DIRAY = 3;
-
-	// Animation type
-	public const int PLAYER_IDLE = 0;
-	public const int PLAYER_WALKING = 1;
-
-	// Interactive flags
-	public const int INTERACTIVE_ENABLE = 1;
-	public const int INTERACTIVE_DISABLE = 0;
-
-	// Interactive widget type
-	public const int INTERACTIVE_TYPE_INVALID = -1;
-	public const int INTERACTIVE_TYPE_CLOSE = 0;
-	public const int INTERACTIVE_TYPE_LABTOP = 1;
-	public const int INTERACTIVE_TYPE_DRAWER = 2;
-	public const int INTERACTIVE_TYPE_VASE = 3;
 
 	// Current player state
 	private int playerState;
@@ -66,25 +48,25 @@ public class PlayerController : MonoBehaviour {
 		InteractiveScene = type;
 
 		switch (type) {
-		case INTERACTIVE_TYPE_CLOSE:
+		case GlobalVariables.INTERACTIVE_TYPE_CLOSE:
 			if (!close_highlight.GetComponent<CloseHighlighter> ().NotUsed)
 				close_highlight.GetComponent<CloseHighlighter> ().NotUsed = true;
 			else
 				return;
 			break;
-		case INTERACTIVE_TYPE_DRAWER:
+		case GlobalVariables.INTERACTIVE_TYPE_DRAWER:
 			if (!draw_highlight.GetComponent<DrawHighLigter> ().NotUsed)
 				draw_highlight.GetComponent<DrawHighLigter> ().NotUsed = true;
 			else
 				return;
 			break;
-		case INTERACTIVE_TYPE_LABTOP:
+		case GlobalVariables.INTERACTIVE_TYPE_LABTOP:
 			if (!labtop_highlight.GetComponent<LabtopHighlighter> ().NotUsed )
 				labtop_highlight.GetComponent<LabtopHighlighter> ().NotUsed = true;
 			else
 				return;
 			break;
-		case INTERACTIVE_TYPE_VASE:
+		case GlobalVariables.INTERACTIVE_TYPE_VASE:
 			if(!vase_highlight.GetComponent<VaseHighligher> ().NotUsed)
 				vase_highlight.GetComponent<VaseHighligher> ().NotUsed = true;
 			else
@@ -94,10 +76,10 @@ public class PlayerController : MonoBehaviour {
 			break;
 		}
 
-		if (type == INTERACTIVE_TYPE_DRAWER)
-			SwitchScene (SCENE_DIRAY);
+		if (type == GlobalVariables.INTERACTIVE_TYPE_DRAWER)
+			SwitchScene (GlobalVariables.SCENE_DIRAY);
 		else
-			SwitchScene (SCENE_WARM);
+			SwitchScene (GlobalVariables.SCENE_WARM);
 	}
 
 	// @params : void
@@ -120,12 +102,12 @@ public class PlayerController : MonoBehaviour {
 		if (CurrentScene != scene) {
 			switch(scene)
 			{
-			case SCENE_WARM:
+			case GlobalVariables.SCENE_WARM:
 				if (!SceneManager.GetSceneByName ("Scene_warm").IsValid ()) {
 					StartCoroutine (Fading("Scene_warm",LoadSceneMode.Additive));
 				}					
 				break;
-			case SCENE_DIRAY:
+			case GlobalVariables.SCENE_DIRAY:
 				DontDestroyOnLoad (GameObject.Find ("Main Camera"));
 				StartCoroutine (GameObject.Find ("background_cold").GetComponent<SceneFadeInOut> ().Fading ("Diary"));
 				break;
@@ -140,6 +122,9 @@ public class PlayerController : MonoBehaviour {
 	// @brif : Moving player sprite along x-axis from input device
 	void Move()
 	{
+		left_arrow_renderer.enabled = false;
+		right_arrow_renderer.enabled = false;
+
 		float move= Input.GetAxis ("Horizontal");
 
 		if (move > 0.0f) {
@@ -165,10 +150,10 @@ public class PlayerController : MonoBehaviour {
 	void SetPlayerState(int state)
 	{
 		switch (state) {
-		case PLAYER_IDLE:
+		case GlobalVariables.PLAYER_IDLE:
 			animator.Play ("Idle");
 			break;
-		case PLAYER_WALKING:
+		case GlobalVariables.PLAYER_WALKING:
 			animator.Play ("Walking");
 			break;
 		}
@@ -188,11 +173,11 @@ public class PlayerController : MonoBehaviour {
 		WidgetActiveNum = 0;
 
 		// Initialize variables
-		InteractiveScene = INTERACTIVE_TYPE_INVALID;
+		InteractiveScene = GlobalVariables.INTERACTIVE_TYPE_INVALID;
 		facingRight = false;
-		CurrentScene = SCENE_COLD;
-		playerState = PLAYER_IDLE;
-		m_Progress = INTERACTIVE_DISABLE;
+		CurrentScene = GlobalVariables.SCENE_COLD;
+		playerState = GlobalVariables.PLAYER_IDLE;
+		m_Progress = GlobalVariables.INTERACTIVE_DISABLE;
 
 		// Get componnents' reference of Player 
 		animator = GetComponent<Animator> ();
@@ -203,27 +188,27 @@ public class PlayerController : MonoBehaviour {
 	{
 		
 		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.D)) {
-			SetPlayerState (PLAYER_WALKING);
+			SetPlayerState (GlobalVariables.PLAYER_WALKING);
 
-			if (m_Progress == INTERACTIVE_ENABLE) {
+			if (m_Progress == GlobalVariables.INTERACTIVE_ENABLE) {
 				renderer.enabled = true;
 				if (lying != null)
 					lying.SetActive (false);
 			} else {
-				m_Progress = INTERACTIVE_ENABLE;
+				m_Progress = GlobalVariables.INTERACTIVE_ENABLE;
 			
 			}
 		} else
-			SetPlayerState (PLAYER_IDLE);
+			SetPlayerState (GlobalVariables.PLAYER_IDLE);
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 
 		switch (playerState) {
-		case PLAYER_IDLE:
+		case GlobalVariables.PLAYER_IDLE:
 			break;
-		case PLAYER_WALKING:
+		case GlobalVariables.PLAYER_WALKING:
 			Move ();
 			break;
 		}

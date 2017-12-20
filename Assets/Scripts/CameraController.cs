@@ -11,15 +11,6 @@ public class CameraController : MonoBehaviour {
 	private float bound_min,bound_max;
 	private float camera_width;
 
-	private const int CLOSE_WIDGET_CLICKED = 0;
-	private const int LABTOP_WIDGET_CLICKED = 1;
-	private const int DRAW_WIDGET_CLICKED = 2;
-	private const int VASE_WIDGET_CLICKED = 3;
-
-	public static Vector3 CAMERA_POS_FLOWER = new Vector3(1.13f,-0.16f,-10.0f);
-	public static Vector3 CAMERA_POS_WATCHMOVIE = new Vector3(-2.03f,-0.07f,-10.0f);
-	public static Vector3 CAMERA_POS_CLEANTIE = new Vector3(-2.46f,-0.14f,-10.0f);
-
 	// @params : Coordinates mouse clicked on the screen
 	// @return : void
 	// @brif : Forwarding click message to switch scenes
@@ -28,7 +19,7 @@ public class CameraController : MonoBehaviour {
 
 		// Click on draw
 		if (DrawHighLigter.frame.Contains (position,true) && DrawHighLigter.m_CurrentState) {
-			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_DRAWER);
+			player.GetComponent<PlayerController> ().InteractiveCallback (GlobalVariables.INTERACTIVE_TYPE_DRAWER);
 
 			GameObject draw = GameObject.Find ("draw_highlight");
 
@@ -39,7 +30,7 @@ public class CameraController : MonoBehaviour {
 
 		// Click on close
 		if (CloseHighlighter.frame.Contains (position,true) && CloseHighlighter.m_CurrentState) {
-			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_CLOSE);
+			player.GetComponent<PlayerController> ().InteractiveCallback (GlobalVariables.INTERACTIVE_TYPE_CLOSE);
 
 			GameObject close = GameObject.Find ("close_highlight");
 
@@ -50,7 +41,7 @@ public class CameraController : MonoBehaviour {
 
 		// Click on labtop
 		if (LabtopHighlighter.frame.Contains (position,true) && LabtopHighlighter.m_CurrentState) {
-			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_LABTOP);
+			player.GetComponent<PlayerController> ().InteractiveCallback (GlobalVariables.INTERACTIVE_TYPE_LABTOP);
 
 			GameObject labtop = GameObject.Find ("labtop_highlight");
 
@@ -61,7 +52,7 @@ public class CameraController : MonoBehaviour {
 
 		// Click on vase
 		if (VaseHighligher.frame.Contains (position,true) && VaseHighligher.m_CurrentState) {
-			player.GetComponent<PlayerController> ().InteractiveCallback (PlayerController.INTERACTIVE_TYPE_VASE);
+			player.GetComponent<PlayerController> ().InteractiveCallback (GlobalVariables.INTERACTIVE_TYPE_VASE);
 
 			GameObject vase = GameObject.Find ("vase_highlight");
 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DiaryTexRolling : MonoBehaviour {
 
-	public const float rolling_speed = 0.025f;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -14,7 +12,7 @@ public class DiaryTexRolling : MonoBehaviour {
 	void FixedUpdate () {
 		if (transform.position.y <= 13.0f) {
 			Vector3 move_vector = new Vector3 (0, 1, 0);
-			transform.position += move_vector * rolling_speed;
+			transform.position += move_vector * GlobalVariables.text_rolling_speed;
 		} else {
 			// Entering puzzle stage 1
 		}

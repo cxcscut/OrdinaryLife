@@ -56,18 +56,18 @@ public class InteractiveScene : MonoBehaviour {
 	void PlayScene(int Scenetype)
 	{
 		switch (Scenetype) {
-		case PlayerController.INTERACTIVE_TYPE_INVALID:
+		case GlobalVariables.INTERACTIVE_TYPE_INVALID:
 			// Don't do anything, this should never happen
 			Debug.Log("INTERACTIVE_TYPE_INVALID passed to Scene_warm");
 			break;
 
-		case PlayerController.INTERACTIVE_TYPE_CLOSE:
+		case GlobalVariables.INTERACTIVE_TYPE_CLOSE:
 			// Play Cleaning up tie scene
 			renderer = maketie.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;
 			break;
 
-		case PlayerController.INTERACTIVE_TYPE_LABTOP:
+		case GlobalVariables.INTERACTIVE_TYPE_LABTOP:
 			// Play watching movie scene
 			renderer = table.GetComponent<SpriteRenderer> ();
 			renderer.enabled = false;
@@ -79,7 +79,7 @@ public class InteractiveScene : MonoBehaviour {
 			renderer.enabled = true;
 			break;
 
-		case PlayerController.INTERACTIVE_TYPE_VASE:
+		case GlobalVariables.INTERACTIVE_TYPE_VASE:
 			// Play arranging flower scene
 			renderer = makeflower.GetComponent<SpriteRenderer> ();
 			renderer.enabled = true;

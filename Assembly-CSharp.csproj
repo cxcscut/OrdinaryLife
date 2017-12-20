@@ -52,10 +52,16 @@
      <Compile Include="Assets\Scripts\DiaryTexRolling.cs" />
      <Compile Include="Assets\Scripts\DrawHighLigter.cs" />
      <Compile Include="Assets\Scripts\FadingController.cs" />
+     <Compile Include="Assets\Scripts\GlobalVariables.cs" />
      <Compile Include="Assets\Scripts\InteractiveScene.cs" />
      <Compile Include="Assets\Scripts\LabtopHighlighter.cs" />
+     <Compile Include="Assets\Scripts\Option1Controller.cs" />
+     <Compile Include="Assets\Scripts\Option2Controller.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SceneFadeInOut.cs" />
+     <Compile Include="Assets\Scripts\Shot4Interactive.cs" />
+     <Compile Include="Assets\Scripts\Stage1Controller.cs" />
+     <Compile Include="Assets\Scripts\Stage2Controller.cs" />
      <Compile Include="Assets\Scripts\VaseHighligher.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>G:/Unity3D/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

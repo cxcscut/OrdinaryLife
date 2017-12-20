@@ -8,15 +8,14 @@ public class FadingController : MonoBehaviour {
 	public new SpriteRenderer renderer;
 	private float alpha = 0.0f;
 
-	private float fading_speed = 0.5f;
 	// Use this for initialization
 	void Start () {
 		renderer = GetComponent<SpriteRenderer> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		alpha += FadingDir * fading_speed * Time.deltaTime;
+		alpha += FadingDir * GlobalVariables.fading_speed * Time.deltaTime;
 
 		alpha = Mathf.Clamp01 (alpha);
 
@@ -27,6 +26,6 @@ public class FadingController : MonoBehaviour {
 	{
 		FadingDir = FadeDir;
 
-		return 1 / fading_speed;
+		return 1 / GlobalVariables.fading_speed;
 	}
 }
