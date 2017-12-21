@@ -9,7 +9,6 @@ public class ButtonController : MonoBehaviour {
 	public GameObject start_clicked;
 	public GameObject exit_clicked;
 
-	private Vector3 click_offset = new Vector3(0.1f,-0.1f,0.0f);
 	private int start_button_state;
 	private int exit_button_state;
 	private int start_highlight_state;
@@ -25,10 +24,10 @@ public class ButtonController : MonoBehaviour {
 	{
 		switch (button_type) {
 		case GlobalVariables.START_BUTTON:
-			start_clicked.transform.position += click_offset;
+			start_clicked.transform.position += GlobalVariables.click_offset;
 			break;
 		case GlobalVariables.EXIT_BUTTON:
-			exit_clicked.transform.position += click_offset;
+			exit_clicked.transform.position += GlobalVariables.click_offset;
 			break;
 		default:
 			break;
@@ -42,10 +41,10 @@ public class ButtonController : MonoBehaviour {
 	{
 		switch (button_type) {
 		case GlobalVariables.START_BUTTON:
-			start_clicked.transform.position -= click_offset;
+			start_clicked.transform.position -= GlobalVariables.click_offset;
 			break;
 		case GlobalVariables.EXIT_BUTTON:
-			exit_clicked.transform.position -= click_offset;
+			exit_clicked.transform.position -= GlobalVariables.click_offset;
 			break;
 		default:
 			break;

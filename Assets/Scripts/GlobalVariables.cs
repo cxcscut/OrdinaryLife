@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalVariables : MonoBehaviour {
-	
+
+	public static Vector3 click_offset = new Vector3(0.1f,-0.1f,0.0f);
+
 	public const int START_HIGHLIGHT_ENABLED = 1;
 	public const int EXIT_HIGHLIGHT_ENABLED = 2;
 	public const int HIGHLIGHT_DISABLED = 3;
@@ -40,9 +42,13 @@ public class GlobalVariables : MonoBehaviour {
 
 	// Chapter #1
 	public static bool LightGameFinished = false;
+	public static bool LightGameActive = true;
 
 	// Wechat game stage
-	public static float TextInterval = 1.0f;
+	public const float TextInterval = 1.0f;
+	public const float UpMovingDistance = 1.1f;
+	public const float UpMovingSpeed = 0.2f;
+	public static bool WechatGameFinished = false;
 
 	// Chapter #2
 	public static bool Shot4Finished = false;

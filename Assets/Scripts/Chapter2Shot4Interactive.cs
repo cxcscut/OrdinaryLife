@@ -27,7 +27,7 @@ public class Chapter2Shot4Interactive : MonoBehaviour {
 	// @brif : Go to Menu game when mouse or touch pad pressing the shot #4
 	void GotoMenuGame()
 	{
-		
+		StartCoroutine (camera.GetComponent<SceneFadeInOut> ().Fading ("Chapter2_2"));
 	}
 
 	// Update is called once per frame

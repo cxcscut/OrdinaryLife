@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WechatGameStageController : MonoBehaviour {
 
 	public GameObject LeftChoice,RightChoice;
 	public GameObject LeftHighlight,RightHighlight;
 	public GameObject LeftShadow,RightShadow;
+	public GameObject return_button;
+	public Animator blur;
 	public new Camera camera;
 
 	public Rect Left_frame, Right_frame;
@@ -14,25 +17,280 @@ public class WechatGameStageController : MonoBehaviour {
 	private int progress = 1;
 	private bool choice1 =false,choice2 = false,choice3 = false;
 
+	private List<GameObject> MoveList = new List<GameObject>();
+
+	public Rect return_frame;
+
+	void UpMovingObject()
+	{
+		MoveList.ForEach (delegate(GameObject o) {
+			o.transform.position += new Vector3 (0,GlobalVariables.UpMovingDistance,0) ;
+		});
+
+	}
+
+	IEnumerator FadingUnload(string Scene_name)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.UnloadSceneAsync (SceneManager.GetSceneByName(Scene_name));
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+
+	}
+
+	IEnumerator ShowConversation1A()
+	{
+		GameObject.Find ("1A-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1A-2").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1A-3").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1A-4").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1A-5").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1A-6").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("choice_text_left1").GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find ("choice_text_right1").GetComponent<SpriteRenderer> ().enabled = false;
+
+		GameObject.Find ("choice_text_left2").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find ("choice_text_right2").GetComponent<SpriteRenderer>().enabled = true;
+
+		blur.Play ("BlurIn");
+		LeftChoice.GetComponent<Animator> ().Play ("LeftChoiceSlide");
+		RightChoice.GetComponent<Animator> ().Play ("RightChoiceSlide");
+
+	}
+
+	IEnumerator ShowConversation2A()
+	{
+		GameObject.Find ("2A-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-2").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2A-3").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2A-4").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-5").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-6").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-7").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-8").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2A-9").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2A-10").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("choice_text_left2").GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find ("choice_text_right2").GetComponent<SpriteRenderer> ().enabled = false;
+
+		GameObject.Find ("choice_text_left3").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find ("choice_text_right3").GetComponent<SpriteRenderer>().enabled = true;
+
+		blur.Play ("BlurIn");
+		LeftChoice.GetComponent<Animator> ().Play ("LeftChoiceSlide");
+		RightChoice.GetComponent<Animator> ().Play ("RightChoiceSlide");
+	
+	}
+
+	IEnumerator ShowConversation3A()
+	{
+		UpMovingObject ();
+
+		GlobalVariables.WechatGameFinished = true;
+
+		GameObject.Find ("3A-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("Wechat_return").GetComponent<SpriteRenderer>().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+	}
+
+	IEnumerator ShowConversation1B()
+	{
+		GameObject.Find ("1B-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1B-2").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1B-3").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1B-4").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1B-5").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("1B-6").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("choice_text_left1").GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find ("choice_text_right1").GetComponent<SpriteRenderer> ().enabled = false;
+
+		GameObject.Find ("choice_text_left2").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find ("choice_text_right2").GetComponent<SpriteRenderer>().enabled = true;
+
+		blur.Play ("BlurIn");
+		LeftChoice.GetComponent<Animator> ().Play ("LeftChoiceSlide");
+		RightChoice.GetComponent<Animator> ().Play ("RightChoiceSlide");
+
+	}
+
+	IEnumerator ShowConversation2B()
+	{
+		GameObject.Find ("2B-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2B-2").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2B-3").GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2B-4").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2B-5").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2B-6").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		GameObject.Find ("2B-7").GetComponent<SpriteRenderer> ().enabled = true;
+
+		UpMovingObject ();
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		UpMovingObject ();
+
+		GameObject.Find ("2B-8").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("3A-1").transform.position += new Vector3(0,0.9f,0);
+		GameObject.Find ("3B-1").transform.position += new Vector3(0,0.9f,0);
+
+		GameObject.Find ("choice_text_left2").GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find ("choice_text_right2").GetComponent<SpriteRenderer> ().enabled = false;
+
+		GameObject.Find ("choice_text_left3").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find ("choice_text_right3").GetComponent<SpriteRenderer>().enabled = true;
+
+		blur.Play ("BlurIn");
+		LeftChoice.GetComponent<Animator> ().Play ("LeftChoiceSlide");
+		RightChoice.GetComponent<Animator> ().Play ("RightChoiceSlide");
+	}
+
+	IEnumerator ShowConversation3B()
+	{
+		UpMovingObject ();
+		UpMovingObject ();
+
+		GameObject.Find ("3B-1").GetComponent<SpriteRenderer> ().enabled = true;
+
+		GameObject.Find ("Wechat_return").GetComponent<SpriteRenderer>().enabled = true;
+
+		GlobalVariables.WechatGameFinished = true;
+
+		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+	}
 
 	void OnClickedLeftChoice()
 	{
+		blur.Play ("BlurOut");
 		switch (progress) {
 		case 1:
 			if (!choice1) {
-				choice1 = true;
 				progress++;
+				StartCoroutine (ShowConversation1A());
 			}
 			break;
 		case 2:
 			if (!choice2) {
-				choice2 = true;
+				StartCoroutine (ShowConversation2A());
 				progress++;
 			}
 			break;
 		case 3:
 			if (!choice3) {
-				choice3 = true;
+				StartCoroutine (ShowConversation3A());
 				progress++;
 			}
 			break;
@@ -46,22 +304,23 @@ public class WechatGameStageController : MonoBehaviour {
 
 	void OnClickedRightChoice()
 	{
+		blur.Play ("BlurOut");
 		switch (progress) {
 		case 1:
 			if (!choice1) {
-				choice1 = true;
+				StartCoroutine (ShowConversation1B());
 				progress++;
 			}
 			break;
 		case 2:
 			if (!choice2) {
-				choice2 = true;
+				StartCoroutine (ShowConversation2B());
 				progress++;
 			}
 			break;
 		case 3:
 			if (!choice3) {
-				choice3 = true;
+				StartCoroutine (ShowConversation3B());
 				progress++;
 			}
 			break;
@@ -71,6 +330,12 @@ public class WechatGameStageController : MonoBehaviour {
 
 		LeftChoice.GetComponent<Animator> ().Play ("LeftChoiceSlideOut");
 		RightChoice.GetComponent<Animator> ().Play ("RightChoiceSlideout");
+	}
+
+	void OnReturnButton()
+	{
+		StartCoroutine (FadingUnload("WechatGame"));
+		GlobalVariables.WechatGameActive = false;
 	}
 
 	void UpdatePos()
@@ -92,8 +357,22 @@ public class WechatGameStageController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		MoveList.Add (GameObject.Find("1A"));
+		MoveList.Add (GameObject.Find("2A"));
+		MoveList.Add (GameObject.Find("3A"));
 
-		Debug.Log (Left_frame);
+		MoveList.Add (GameObject.Find("1B"));
+		MoveList.Add (GameObject.Find("2B"));
+		MoveList.Add (GameObject.Find("3B"));
+
+		return_frame = new Rect (
+			return_button.transform.position.x - return_button.GetComponent<SpriteRenderer>().bounds.size.x / 2,
+			return_button.transform.position.y + return_button.GetComponent<SpriteRenderer>().bounds.size.y / 2,
+			return_button.GetComponent<SpriteRenderer>().bounds.size.x,
+			-return_button.GetComponent<SpriteRenderer>().bounds.size.y
+		);
+
+		blur.Play ("BlurIn");
 	}
 	
 	// Update is called once per frame
@@ -165,6 +444,32 @@ public class WechatGameStageController : MonoBehaviour {
 		} else {
 			RightHighlight.GetComponent<SpriteRenderer> ().enabled = false;
 			RightChoice.GetComponent<SpriteRenderer> ().enabled = true;
+		}
+
+		if (GlobalVariables.WechatGameFinished) {
+
+			if (return_frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y), true)
+			    || return_frame.Contains (new Vector2 (touch_pos.x, touch_pos.y), true)) {
+
+				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = true;
+
+				// Mouse or touchpad pressing 
+				if (Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) {
+					GameObject.Find ("Wechat_return_shadow").GetComponent<SpriteRenderer> ().enabled = true;
+
+					OnReturnButton ();
+				} else
+					// Highlighting return button
+					GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = true;
+
+				// Mouse or touchpad releasing
+				if (Input.GetMouseButtonUp (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended)) {
+					GameObject.Find ("Wechat_return_shadow").GetComponent<SpriteRenderer> ().enabled = false;
+					GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = true;
+				}
+			} else {
+				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = false;
+			}
 		}
 
 	}

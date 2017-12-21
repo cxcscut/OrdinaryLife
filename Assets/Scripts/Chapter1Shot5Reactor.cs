@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Chapter1Shot5Reactor : MonoBehaviour {
 
@@ -8,9 +10,20 @@ public class Chapter1Shot5Reactor : MonoBehaviour {
 
 	private Rect frame;
 
+	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.LoadScene (Scene_name,mode);
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
+		
 	void GotoWechatGame()
 	{
-		
+		GameObject.Find ("cellphone_highlight").GetComponent<SpriteRenderer>().enabled = false;
+
+		StartCoroutine (Fading("WechatGame",LoadSceneMode.Additive));
 	}
 
 	// Use this for initialization

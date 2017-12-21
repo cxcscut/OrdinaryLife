@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\Chapter2Shot4Interactive.cs" />
      <Compile Include="Assets\Scripts\Chapter2Stage1Controller.cs" />
      <Compile Include="Assets\Scripts\Chapter2Stage2Controller.cs" />
+     <Compile Include="Assets\Scripts\Chapter2Stage3Controller.cs" />
+     <Compile Include="Assets\Scripts\Chapter2Stage4Controller.cs" />
      <Compile Include="Assets\Scripts\CloseHighlighter.cs" />
      <Compile Include="Assets\Scripts\DiaryTexRolling.cs" />
      <Compile Include="Assets\Scripts\DrawHighLigter.cs" />

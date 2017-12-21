@@ -29,8 +29,7 @@ public class InteractiveScene : MonoBehaviour {
 
 		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
 	}
-
-
+		
 	void OnSceneLoaded(Scene scene,LoadSceneMode mode)
 	{
 		GameObject.Find ("Player").GetComponent<SpriteRenderer> ().enabled = false;

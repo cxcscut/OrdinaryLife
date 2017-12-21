@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Chapter2Stage2Controller : MonoBehaviour {
 
 	private int click_num = 0;
@@ -14,6 +14,15 @@ public class Chapter2Stage2Controller : MonoBehaviour {
 	public GameObject option1;
 	public GameObject option2;
 	public GameObject option3;
+
+	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.LoadScene (Scene_name,mode);
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
 
 	void InteractiveCallback(int shot)
 	{
