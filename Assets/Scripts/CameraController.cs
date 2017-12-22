@@ -16,7 +16,9 @@ public class CameraController : MonoBehaviour {
 	// @brif : Forwarding click message to switch scenes
 	void ForwardClick(Vector2 position)
 	{
-
+		if (GlobalVariables.EnterWarmScene)
+			return;
+		
 		// Click on draw
 		if (DrawHighLigter.frame.Contains (position,true) && DrawHighLigter.m_CurrentState) {
 			player.GetComponent<PlayerController> ().InteractiveCallback (GlobalVariables.INTERACTIVE_TYPE_DRAWER);

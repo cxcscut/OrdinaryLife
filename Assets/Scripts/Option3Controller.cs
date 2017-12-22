@@ -23,6 +23,7 @@ public class Option3Controller : MonoBehaviour {
 	}
 
 	void OnPress() {
+		GlobalVariables.OptionScores = 30;
 		StartCoroutine (GameObject.Find ("Chapter2_background").GetComponent<SceneFadeInOut> ().Fading ("Chapter2_3"));
 	}
 

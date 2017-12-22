@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GlobalVariables : MonoBehaviour {
 
+	// Resolution setting
+	public const int SCREEN_WIDTH = 1280;
+	public const int SCREEN_HEIGHT = 600;
+	public const bool isFullScreen = false;
+
 	public static Vector3 click_offset = new Vector3(0.1f,-0.1f,0.0f);
 
 	public const int START_HIGHLIGHT_ENABLED = 1;
@@ -40,15 +45,21 @@ public class GlobalVariables : MonoBehaviour {
 
 	public const float fading_speed = 0.5f;
 
-	// Chapter #1
-	public static bool LightGameFinished = false;
-	public static bool LightGameActive = true;
+	// Player control
+	public const float MovingSpeed = 0.05f;
+
+	// Scene #1
+	public static bool EnterWarmScene = false;
+
+	// Diary Scene
+	public static int DiaryTextIndex = 1;
 
 	// Wechat game stage
-	public const float TextInterval = 1.0f;
+	public const float TextInterval = 2.0f;
 	public const float UpMovingDistance = 1.1f;
 	public const float UpMovingSpeed = 0.2f;
 	public static bool WechatGameFinished = false;
+	public static int WechatGameScores = 0;
 
 	// Chapter #2
 	public static bool Shot4Finished = false;
@@ -56,6 +67,20 @@ public class GlobalVariables : MonoBehaviour {
 	public static bool Shot9Active = false;
 	public static bool Shot4Active = false;
 	public static bool WechatGameActive = false;
+
+	// Option
+	public static int OptionScores = 0;
+
+	// Light game stage
+	public const float TimeLimit = 600.0f;
+	public static bool LightGameFinished = false;
+	public static bool LightGameActive = true;
+	public static int LightGameScores = 0;
+
+	// Menu game stage
+	public static bool MenuGameFinished = false;
+	public const float OSDisplayTime = 2.0f;
+	public static int MenuGameScores = 0;
 
 	// Scores
 	public static float TotalScores = 0.0f;

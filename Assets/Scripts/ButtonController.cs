@@ -56,6 +56,7 @@ public class ButtonController : MonoBehaviour {
 	// @brif : Message handler of clicking event on start button
 	void OnStartButton()
 	{
+		start_clicked.GetComponent<AudioSource> ().Play ();
 		StartCoroutine(GetComponent<SceneFadeInOut> ().Fading ("Scene_cold"));
 	}
 
@@ -64,6 +65,7 @@ public class ButtonController : MonoBehaviour {
 	// @brif : Message handler of clicking event on exit button
 	void OnExitButton()
 	{
+		exit_clicked.GetComponent<AudioSource> ().Play ();
 		// Exit the game
 		Application.Quit();
 	}

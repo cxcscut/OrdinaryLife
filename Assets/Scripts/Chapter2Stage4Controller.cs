@@ -57,9 +57,54 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 
 	}
 
-	void GotoDiary()
+	void GotoEndingScene()
 	{
-		Debug.Log ("Go back to Diary Scene");
+		Debug.Log ("Go to Ending Scene");
+
+		int FinalScores=0, Chapter1Scores=0, Chapter2Scores=0;
+
+		// Compute Chapter1 scores
+		if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores < 50)
+			Chapter1Scores = 0;
+		else if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores >= 50
+		         && GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores < 70)
+			Chapter1Scores = 1;
+		else if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores >= 70)
+			Chapter1Scores = 2;
+
+		// Compute Chapter2 scores
+		if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores < 50)
+			Chapter2Scores = 0;
+		else if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores >= 50
+		         && GlobalVariables.OptionScores + GlobalVariables.MenuGameScores < 70)
+			Chapter2Scores = 1;
+		else if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores >= 70)
+			Chapter2Scores = 2;
+
+		Debug.Log ("LightGameScores = " + GlobalVariables.LightGameScores.ToString());
+		Debug.Log ("WechatGameScores = " + GlobalVariables.WechatGameScores.ToString());
+		Debug.Log ("Chapter1Scores = " + Chapter1Scores.ToString());
+
+		Debug.Log ("MenuGameScores = " + GlobalVariables.MenuGameScores.ToString());
+		Debug.Log ("OptionScores = " + GlobalVariables.OptionScores.ToString());
+		Debug.Log ("Chapter2Scores = " + Chapter2Scores.ToString());
+
+		FinalScores = Chapter1Scores + Chapter2Scores;
+
+		Debug.Log ("FinalScores = " + FinalScores.ToString());
+
+		// Entering the ending scene
+		if (FinalScores <= 1) {
+			// Entering the bad ending
+
+		} else if (FinalScores > 1 && FinalScores <= 3) {
+			// Entering the ordinary ending
+
+		} else if (FinalScores >= 4) {
+			// Entering the best endind
+
+		}
+	
 	}
 
 	// Use this for initialization
@@ -103,7 +148,8 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 				{
 					arrow.transform.position -= GlobalVariables.click_offset;
 
-					GotoDiary ();
+					// Go to ENDING scene
+					GotoEndingScene ();
 				}
 			}
 			else

@@ -46,6 +46,7 @@ public class InteractiveScene : MonoBehaviour {
 	void SceneRollback()
 	{
 		StartCoroutine (FadingUnload("Scene_warm"));
+		GlobalVariables.EnterWarmScene = false;
 	}
 
 	// @params : Scene type that is about to play

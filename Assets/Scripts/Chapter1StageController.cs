@@ -14,8 +14,6 @@ public class Chapter1StageController : MonoBehaviour {
 	public GameObject arrow;
 	public new Camera camera;
 
-	private bool EnterWechatGame = false;
-
 	public Rect arrow_frame;
 
 	void InteractiveCallback(int shot)
@@ -91,10 +89,10 @@ public class Chapter1StageController : MonoBehaviour {
 				{
 					arrow.transform.position -= GlobalVariables.click_offset;
 
-					if (!EnterWechatGame) {
-						EnterWechatGame = true;
-						StartCoroutine (GameObject.Find ("Chapter1_background").GetComponent<SceneFadeInOut> ().Fading ("Chapter2_1"));
-					}
+					GlobalVariables.DiaryTextIndex = 2;
+
+					StartCoroutine (GameObject.Find ("Chapter1_background").GetComponent<SceneFadeInOut> ().Fading ("Diary"));
+
 				}
 			}
 			else

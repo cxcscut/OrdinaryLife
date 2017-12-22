@@ -1,17 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Chapter1Shot1Reactor : MonoBehaviour {
 
 	private Rect frame;
 
+	public new AudioSource audio;
 	public GameObject highlight;
 	public new Camera camera;
+	private bool EnterLightGame = false;
+
+	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.LoadScene (Scene_name,mode);
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
 
 	void GotoLightGame()
 	{
 		GameObject.Find ("LightGame_highlight").GetComponent<SpriteRenderer> ().enabled = false;
+		StartCoroutine (Fading("LightGame",LoadSceneMode.Additive));
 	}
 
 	// Use this for initialization
@@ -37,12 +50,14 @@ public class Chapter1Shot1Reactor : MonoBehaviour {
 				// Click on shot #1
 				if (frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y),true) || frame.Contains (new Vector2 (touch_pos.x, touch_pos.y),true)) {
 
-					// Switch scene to lightgame
-					GotoLightGame ();
 
-					// Deactivated shot #4
-					GlobalVariables.LightGameFinished = true;
+					if (!EnterLightGame && !GlobalVariables.LightGameFinished) {
+						EnterLightGame = true;
 
+						// Switch scene to lightgame
+						GotoLightGame ();
+					}
+						
 					Debug.Log ("Go to light game");
 				}
 			}

@@ -8,6 +8,8 @@ public class Chapter1Shot5Reactor : MonoBehaviour {
 
 	public new Camera camera;
 
+	private bool EnterWechatGame = false;
+
 	private Rect frame;
 
 	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
@@ -49,11 +51,12 @@ public class Chapter1Shot5Reactor : MonoBehaviour {
 				// Click on shot #5
 				if (frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y),true) || frame.Contains (new Vector2 (touch_pos.x, touch_pos.y),true)) {
 
-					// Switch scene to wechatGame
-					GotoWechatGame ();
+					if (!EnterWechatGame && GlobalVariables.LightGameFinished) {
 
-					// Deactivated shot #4
-					GlobalVariables.LightGameFinished = true;
+						EnterWechatGame = true;
+						// Switch scene to wechatGame
+						GotoWechatGame ();
+					}
 
 					Debug.Log ("Go to Wechat game");
 				}

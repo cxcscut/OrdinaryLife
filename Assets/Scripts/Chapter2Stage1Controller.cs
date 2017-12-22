@@ -15,6 +15,11 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 	public GameObject shot6_sad;
 	public GameObject shot4_highlighter;
 
+	public new Camera camera;
+
+	public GameObject arrow;
+	public Rect arrow_frame;
+
 	void InteractiveCallback(int shot)
 	{
 		switch (shot) {
@@ -56,7 +61,12 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		arrow_frame = new Rect (
+			arrow.transform.position.x - arrow.GetComponent<SpriteRenderer>().bounds.size.x / 2,
+			arrow.transform.position.y + arrow.GetComponent<SpriteRenderer>().bounds.size.y / 2,
+			arrow.GetComponent<SpriteRenderer>().bounds.size.x,
+			-arrow.GetComponent<SpriteRenderer>().bounds.size.y
+		);
 	}
 
 	// Update is called once per frame
@@ -66,11 +76,41 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 			InteractiveCallback (++click_num);
 		}
 
-		if (GlobalVariables.Shot4Finished) {
+		if (GlobalVariables.MenuGameFinished) {
 			// display happy shot #5 or sad shot #5
+			arrow.GetComponent<SpriteRenderer> ().enabled = true;
 
-			if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
-				GotoNextStage ();
+			Vector3 mouse_pos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0.0f));
+			Vector3 touch_pos = Input.touchCount > 0 ? 
+				camera.ScreenToWorldPoint (new Vector3 (Input.GetTouch (0).position.x, Input.GetTouch (0).position.y, 0.0f)) :
+				new Vector3 (-255.0f,-255.0f,0.0f);
+
+			if (arrow_frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y), true)
+				|| arrow_frame.Contains (new Vector2 (touch_pos.x, touch_pos.y), true)) {
+				arrow.GetComponent<Animator> ().enabled = false;
+				Color current = arrow.GetComponent<SpriteRenderer> ().color;
+				arrow.GetComponent<SpriteRenderer> ().color = new Color (current.r,current.g,current.b,1.0f);
+
+				// Mouse or touchpad pressing 
+				if (Input.GetMouseButtonDown (0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) {
+
+					arrow.transform.position += GlobalVariables.click_offset;
+
+				}
+
+				// Mouse or touchpad releasing
+				if(Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended))
+				{
+					arrow.transform.position -= GlobalVariables.click_offset;
+
+					GlobalVariables.DiaryTextIndex = 2;
+
+					StartCoroutine (GetComponent<SceneFadeInOut> ().Fading ("Chapter2_2"));
+
+				}
+			}
+			else
+				arrow.GetComponent<Animator> ().enabled = true;
 		}
 	}
 }

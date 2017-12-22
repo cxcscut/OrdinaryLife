@@ -10,6 +10,8 @@ public class Chapter2Shot4Interactive : MonoBehaviour {
 
 	private Rect frame;
 
+	private bool EnterMenuGame = false;
+
 	// Use this for initialization
 	void Start () {
 		frame = new Rect (
@@ -22,12 +24,21 @@ public class Chapter2Shot4Interactive : MonoBehaviour {
 		Debug.Log (frame);
 	}
 
+	IEnumerator Fading(string Scene_name,LoadSceneMode mode)
+	{
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
+
+		SceneManager.LoadScene (Scene_name,mode);
+
+		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(-1));
+	}
+
 	// @params : void
 	// @return : void
 	// @brif : Go to Menu game when mouse or touch pad pressing the shot #4
 	void GotoMenuGame()
 	{
-		StartCoroutine (camera.GetComponent<SceneFadeInOut> ().Fading ("Chapter2_2"));
+		StartCoroutine (Fading("MenuGame",LoadSceneMode.Additive));
 	}
 
 	// Update is called once per frame
@@ -45,8 +56,11 @@ public class Chapter2Shot4Interactive : MonoBehaviour {
 				// Click on Menu
 				if (frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y),true) || frame.Contains (new Vector2 (touch_pos.x, touch_pos.y),true)) {
 
-					// Switch scene to menu game
-					GotoMenuGame ();
+					if (!EnterMenuGame) {
+						EnterMenuGame = true;
+						// Switch scene to menu game
+						GotoMenuGame ();
+					}
 
 					// Deactivated shot #4
 					GlobalVariables.Shot4Active = false;

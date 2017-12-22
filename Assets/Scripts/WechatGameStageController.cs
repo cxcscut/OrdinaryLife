@@ -12,6 +12,10 @@ public class WechatGameStageController : MonoBehaviour {
 	public Animator blur;
 	public new Camera camera;
 
+	private bool ChoiceLock = false;
+
+	public new AudioSource audio;
+
 	public Rect Left_frame, Right_frame;
 
 	private int progress = 1;
@@ -41,25 +45,34 @@ public class WechatGameStageController : MonoBehaviour {
 
 	IEnumerator ShowConversation1A()
 	{
+
 		GameObject.Find ("1A-1").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1A-2").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("1A-3").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1A-4").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("1A-5").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1A-6").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -77,9 +90,12 @@ public class WechatGameStageController : MonoBehaviour {
 
 	IEnumerator ShowConversation2A()
 	{
+
 		GameObject.Find ("2A-1").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("2A-2").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -87,11 +103,14 @@ public class WechatGameStageController : MonoBehaviour {
 
 		UpMovingObject ();
 
+
 		GameObject.Find ("2A-3").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
 		UpMovingObject ();
+
+		audio.Play ();
 
 		GameObject.Find ("2A-4").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -99,11 +118,14 @@ public class WechatGameStageController : MonoBehaviour {
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("2A-5").GetComponent<SpriteRenderer> ().enabled = true;
 
 		UpMovingObject ();
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("2A-6").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -111,17 +133,21 @@ public class WechatGameStageController : MonoBehaviour {
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("2A-7").GetComponent<SpriteRenderer> ().enabled = true;
 
 		UpMovingObject ();
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+		audio.Play ();
+
 		GameObject.Find ("2A-8").GetComponent<SpriteRenderer> ().enabled = true;
 
 		UpMovingObject ();
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
 
 		GameObject.Find ("2A-9").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -130,6 +156,8 @@ public class WechatGameStageController : MonoBehaviour {
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
 		UpMovingObject ();
+
+		audio.Play ();
 
 		GameObject.Find ("2A-10").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -161,25 +189,34 @@ public class WechatGameStageController : MonoBehaviour {
 
 	IEnumerator ShowConversation1B()
 	{
+
 		GameObject.Find ("1B-1").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1B-2").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("1B-3").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1B-4").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+
 		GameObject.Find ("1B-5").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
+
+		audio.Play ();
 
 		GameObject.Find ("1B-6").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -203,6 +240,8 @@ public class WechatGameStageController : MonoBehaviour {
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
+		audio.Play ();
+
 		GameObject.Find ("2B-2").GetComponent<SpriteRenderer> ().enabled = true;
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
@@ -215,6 +254,8 @@ public class WechatGameStageController : MonoBehaviour {
 
 		UpMovingObject ();
 
+		audio.Play ();
+
 		GameObject.Find ("2B-4").GetComponent<SpriteRenderer> ().enabled = true;
 
 		UpMovingObject ();
@@ -224,6 +265,8 @@ public class WechatGameStageController : MonoBehaviour {
 		GameObject.Find ("2B-5").GetComponent<SpriteRenderer> ().enabled = true;
 
 		UpMovingObject ();
+
+		audio.Play ();
 
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
@@ -240,6 +283,8 @@ public class WechatGameStageController : MonoBehaviour {
 		yield return new WaitForSeconds (GlobalVariables.TextInterval);
 
 		UpMovingObject ();
+
+		audio.Play ();
 
 		GameObject.Find ("2B-8").GetComponent<SpriteRenderer> ().enabled = true;
 
@@ -274,6 +319,11 @@ public class WechatGameStageController : MonoBehaviour {
 
 	void OnClickedLeftChoice()
 	{
+		if (ChoiceLock)
+			return;
+		
+		ChoiceLock = true;
+
 		blur.Play ("BlurOut");
 		switch (progress) {
 		case 1:
@@ -284,12 +334,14 @@ public class WechatGameStageController : MonoBehaviour {
 			break;
 		case 2:
 			if (!choice2) {
+				GlobalVariables.WechatGameScores += 10;
 				StartCoroutine (ShowConversation2A());
 				progress++;
 			}
 			break;
 		case 3:
 			if (!choice3) {
+				GlobalVariables.WechatGameScores += 10;
 				StartCoroutine (ShowConversation3A());
 				progress++;
 			}
@@ -304,10 +356,16 @@ public class WechatGameStageController : MonoBehaviour {
 
 	void OnClickedRightChoice()
 	{
+		if (ChoiceLock)
+			return;
+		
+		ChoiceLock = true;
+
 		blur.Play ("BlurOut");
 		switch (progress) {
 		case 1:
 			if (!choice1) {
+				GlobalVariables.WechatGameScores += 20;
 				StartCoroutine (ShowConversation1B());
 				progress++;
 			}
@@ -320,6 +378,7 @@ public class WechatGameStageController : MonoBehaviour {
 			break;
 		case 3:
 			if (!choice3) {
+				GlobalVariables.WechatGameScores += 20;
 				StartCoroutine (ShowConversation3B());
 				progress++;
 			}
@@ -336,6 +395,7 @@ public class WechatGameStageController : MonoBehaviour {
 	{
 		StartCoroutine (FadingUnload("WechatGame"));
 		GlobalVariables.WechatGameActive = false;
+		GlobalVariables.WechatGameFinished = true;
 	}
 
 	void UpdatePos()
@@ -377,6 +437,11 @@ public class WechatGameStageController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// Check if animation is done
+		AnimatorStateInfo info = LeftChoice.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0);
+		if (info.normalizedTime >= 1.0f)
+			ChoiceLock = false;
 
 		UpdatePos ();
 

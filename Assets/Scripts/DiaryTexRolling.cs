@@ -19,9 +19,13 @@ public class DiaryTexRolling : MonoBehaviour {
 			Vector3 move_vector = new Vector3 (0, 1, 0);
 			transform.position += move_vector * GlobalVariables.text_rolling_speed;
 		} 
-		if(transform.position.y >=8.0f)
-			// Entering puzzle stage 1
-			StartCoroutine (GameObject.Find ("diary").GetComponent<SceneFadeInOut> ().Fading ("Chapter1_1"));
-		
+		if (transform.position.y >= 8.0f) {
+			if(GlobalVariables.DiaryTextIndex == 1)
+				// Entering puzzle stage 1
+				StartCoroutine (GameObject.Find ("diary").GetComponent<SceneFadeInOut> ().Fading ("Chapter1_1"));
+			else if(GlobalVariables.DiaryTextIndex == 2)
+				// Entering Chapter2_1
+				StartCoroutine (GameObject.Find ("diary").GetComponent<SceneFadeInOut> ().Fading ("Chapter2_1"));
+		}
 	}
 }

@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour {
 
 	public SpriteRenderer left_arrow_renderer, right_arrow_renderer;
 
+	public AudioSource audio_walking;
+
 	public int m_Progress;
-	public float speed;
 	private bool facingRight;
 	private int CurrentScene;
 	public int WidgetActiveNum;
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (type == GlobalVariables.INTERACTIVE_TYPE_DRAWER)
 			SwitchScene (GlobalVariables.SCENE_DIRAY);
-		else
+		else 
 			SwitchScene (GlobalVariables.SCENE_WARM);
 	}
 
@@ -104,11 +105,12 @@ public class PlayerController : MonoBehaviour {
 			{
 			case GlobalVariables.SCENE_WARM:
 				if (!SceneManager.GetSceneByName ("Scene_warm").IsValid ()) {
+					GlobalVariables.EnterWarmScene = true;
 					StartCoroutine (Fading("Scene_warm",LoadSceneMode.Additive));
 				}					
 				break;
 			case GlobalVariables.SCENE_DIRAY:
-				DontDestroyOnLoad (GameObject.Find ("Main Camera"));
+				DontDestroyOnLoad (GameObject.Find ("BGMplayer"));
 				StartCoroutine (GameObject.Find ("background_cold").GetComponent<SceneFadeInOut> ().Fading ("Diary"));
 				break;
 			default:
@@ -141,7 +143,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector2 move_vector = new Vector2 (move, 0.0f);
 
-		transform.Translate (move_vector * speed);
+		transform.Translate (move_vector * GlobalVariables.MovingSpeed);
 	}
 
 	// @params : Player state type
@@ -151,9 +153,17 @@ public class PlayerController : MonoBehaviour {
 	{
 		switch (state) {
 		case GlobalVariables.PLAYER_IDLE:
+
+			if (audio_walking.isPlaying)
+				audio_walking.Stop ();
+
 			animator.Play ("Idle");
 			break;
 		case GlobalVariables.PLAYER_WALKING:
+			
+			if (!audio_walking.isPlaying)
+				audio_walking.Play ();
+			
 			animator.Play ("Walking");
 			break;
 		}
