@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\DiaryRollingController.cs" />
      <Compile Include="Assets\Scripts\DiaryTexRolling.cs" />
      <Compile Include="Assets\Scripts\DrawHighLigter.cs" />
+     <Compile Include="Assets\Scripts\EndingSceneController.cs" />
      <Compile Include="Assets\Scripts\FadingController.cs" />
      <Compile Include="Assets\Scripts\GlobalVariables.cs" />
      <Compile Include="Assets\Scripts\InteractiveScene.cs" />

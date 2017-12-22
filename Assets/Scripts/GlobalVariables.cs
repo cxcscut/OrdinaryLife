@@ -40,7 +40,7 @@ public class GlobalVariables : MonoBehaviour {
 	public const int INTERACTIVE_TYPE_DRAWER = 2;
 	public const int INTERACTIVE_TYPE_VASE = 3;
 
-	public const float text_rolling_speed = 0.025f;
+	public const float text_rolling_speed = 0.01f;
 	public const int MIN_ACTIVE_WIDGET = 2;
 
 	public const float fading_speed = 0.5f;
@@ -82,7 +82,7 @@ public class GlobalVariables : MonoBehaviour {
 	public const float OSDisplayTime = 2.0f;
 	public static int MenuGameScores = 0;
 
-	// Scores
-	public static float TotalScores = 0.0f;
+	// Ending
+	public static int EndingType = 1;
 
 }

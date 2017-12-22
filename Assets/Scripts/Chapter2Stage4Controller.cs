@@ -93,18 +93,20 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 
 		Debug.Log ("FinalScores = " + FinalScores.ToString());
 
-		// Entering the ending scene
+		// Set the ending type
 		if (FinalScores <= 1) {
 			// Entering the bad ending
-
+			GlobalVariables.EndingType = 3;
 		} else if (FinalScores > 1 && FinalScores <= 3) {
 			// Entering the ordinary ending
-
+			GlobalVariables.EndingType = 2;
 		} else if (FinalScores >= 4) {
 			// Entering the best endind
-
+			GlobalVariables.EndingType = 1;
 		}
-	
+
+		// Entering the ending scene
+		StartCoroutine(GetComponent<SceneFadeInOut> ().Fading ("Ending"));
 	}
 
 	// Use this for initialization
