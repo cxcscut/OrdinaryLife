@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EndingSceneController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="129" Column="3" />
       <File FileName="Assets\Scripts\InteractiveScene.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DrawHighLigter.cs" Line="1" Column="1" />
@@ -14,8 +14,8 @@
       <File FileName="Assets\Scripts\SceneFadeInOut.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\FadingController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Chapter2Shot4Interactive.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GlobalVariables.cs" Line="86" Column="35" />
-      <File FileName="Assets\Scripts\Chapter2Stage1Controller.cs" Line="97" Column="63" />
+      <File FileName="Assets\Scripts\GlobalVariables.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Chapter2Stage1Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Chapter2Stage2Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Option1Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Option2Controller.cs" Line="1" Column="1" />
@@ -25,12 +25,12 @@
       <File FileName="Assets\Scripts\WechatGameStageController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Option3Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Chapter2Stage4Controller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter2Stage3Controller.cs" Line="160" Column="6" />
+      <File FileName="Assets\Scripts\Chapter2Stage3Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ResolutionSetting.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MenuGameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LightGameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DiaryRollingController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EndingSceneController.cs" Line="103" Column="86" />
+      <File FileName="Assets\Scripts\EndingSceneController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

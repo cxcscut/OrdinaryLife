@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		left_arrow_renderer.enabled = false;
 		right_arrow_renderer.enabled = false;
+		GameObject.Find ("notice").GetComponent<SpriteRenderer> ().enabled = false;
 
 		float move= Input.GetAxis ("Horizontal");
 
