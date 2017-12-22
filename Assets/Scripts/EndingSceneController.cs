@@ -38,6 +38,9 @@ public class EndingSceneController : MonoBehaviour {
 		GlobalVariables.MenuGameScores = 0;
 		GlobalVariables.EndingType = -1;
 
+		if (GameObject.Find ("BGMplayer") != null)
+			DestroyObject (GameObject.Find("BGMplayer"));
+
 		StartCoroutine(GetComponent<SceneFadeInOut> ().Fading ("Starting"));
 	}
 
@@ -90,6 +93,14 @@ public class EndingSceneController : MonoBehaviour {
 		yield return new WaitForSecondsRealtime (3.0f);
 
 		GameObject.Find ("bad_ending_text4").GetComponent<Animator>().Play("badEnding_text4");
+
+		yield return new WaitForSecondsRealtime (3.0f);
+
+		GameObject.Find ("bad_ending_text5").GetComponent<Animator>().Play("badEnding_text5");
+
+		yield return new WaitForSecondsRealtime (3.0f);
+
+		GameObject.Find ("bad_ending_text6").GetComponent<Animator>().Play("badEnding_text6");
 	}
 
 	void DisplayBestEnding()

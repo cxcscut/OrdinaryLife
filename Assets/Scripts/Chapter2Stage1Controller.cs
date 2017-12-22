@@ -105,7 +105,8 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 
 					GlobalVariables.DiaryTextIndex = 2;
 
-					StartCoroutine (GetComponent<SceneFadeInOut> ().Fading ("Chapter2_2"));
+					if(GlobalVariables.MenuGameFinished)
+						StartCoroutine (GetComponent<SceneFadeInOut> ().Fading ("Chapter2_2"));
 
 				}
 			}
