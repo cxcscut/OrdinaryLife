@@ -108,16 +108,16 @@ public class LightGameController : MonoBehaviour {
 		if (VerifyState (game_state)) {
 
 			// Compute scores
-			if (Time.time - LastTime < 255.0f) {
+			if (Time.time - LastTime < 20.0f) {
 				// no more than 255 seconds
 				GlobalVariables.LightGameScores = 40;
-			} else if (Time.time - LastTime >= 255.0f && Time.time - LastTime < 435.0f) {
+			} else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
 				// no more than 435 seconds
 				GlobalVariables.LightGameScores = 30;
-			} else if (Time.time - LastTime >= 435.0f && Time.time - LastTime < 555.0f) {
+			} else if (Time.time - LastTime >= 40.0f && Time.time - LastTime < 60.0f) {
 				// no more than 555 seconds
 				GlobalVariables.LightGameScores = 20;
-			} else if (Time.time - LastTime >= 555.0f && Time.time - LastTime < 600.0f) {
+			} else if (Time.time - LastTime >= 60.0f && Time.time - LastTime < 120.0f) {
 				// no more than 600 seconds
 				GlobalVariables.LightGameScores = 10;
 			}
@@ -172,16 +172,16 @@ public class LightGameController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (Time.time - LastTime < 255.0f) {
+		if (Time.time - LastTime < 20.0f) {
 			// no more than 255 seconds
 			wechat.Play();
-		} else if (Time.time - LastTime >= 255.0f && Time.time - LastTime < 435.0f) {
+		} else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
 			// no more than 435 seconds
 			wechat.Play();
-		} else if (Time.time - LastTime >= 435.0f && Time.time - LastTime < 555.0f) {
+		} else if (Time.time - LastTime >= 40.0f && Time.time - LastTime < 60.0f) {
 			// no more than 555 seconds
 			wechat.Play();
-		} else if (Time.time - LastTime >= 555.0f && Time.time - LastTime < 600.0f) {
+		} else if (Time.time - LastTime >= 60.0f && Time.time - LastTime < 120.0f) {
 			// no more than 600 seconds
 			wechat.Play();
 		}

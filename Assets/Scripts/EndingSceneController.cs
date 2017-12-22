@@ -20,6 +20,24 @@ public class EndingSceneController : MonoBehaviour {
 
 	void OnPlayAgain()
 	{
+		// Reset global variables
+		GlobalVariables.EnterWarmScene = false;
+		GlobalVariables.WechatGameFinished = false;
+		GlobalVariables.WechatGameScores = 0;
+		GlobalVariables.DiaryTextIndex = 1;
+		GlobalVariables.Shot4Finished = false;
+		GlobalVariables.Shot5Finished = false;
+		GlobalVariables.Shot9Active = false;
+		GlobalVariables.Shot4Active = false;
+		GlobalVariables.WechatGameActive = false;
+		GlobalVariables.OptionScores = 0;
+		GlobalVariables.LightGameFinished = false;
+		GlobalVariables.LightGameActive = true;
+		GlobalVariables.LightGameScores = 0;
+		GlobalVariables.MenuGameFinished = false;
+		GlobalVariables.MenuGameScores = 0;
+		GlobalVariables.EndingType = -1;
+
 		StartCoroutine(GetComponent<SceneFadeInOut> ().Fading ("Starting"));
 	}
 

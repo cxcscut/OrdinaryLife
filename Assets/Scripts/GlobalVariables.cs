@@ -72,7 +72,7 @@ public class GlobalVariables : MonoBehaviour {
 	public static int OptionScores = 0;
 
 	// Light game stage
-	public const float TimeLimit = 600.0f;
+	public const float TimeLimit = 120.0f;
 	public static bool LightGameFinished = false;
 	public static bool LightGameActive = true;
 	public static int LightGameScores = 0;
@@ -83,6 +83,6 @@ public class GlobalVariables : MonoBehaviour {
 	public static int MenuGameScores = 0;
 
 	// Ending
-	public static int EndingType = 1;
+	public static int EndingType = -1;
 
 }
