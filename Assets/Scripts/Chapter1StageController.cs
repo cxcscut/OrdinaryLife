@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Chapter1StageController : MonoBehaviour {
 
-	private int click_num = 1;
-
 	public GameObject shot2;
 	public GameObject shot3;
 	public GameObject shot4;
@@ -16,6 +14,35 @@ public class Chapter1StageController : MonoBehaviour {
 
 	public Rect arrow_frame;
 
+	private bool auto_play = false;
+
+	IEnumerator AutoPlay()
+	{
+		yield return new WaitForSeconds (1.5f * GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (2);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (3);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (4);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (5);
+	}
+
+	IEnumerator ShowShot5()
+	{
+		yield return new WaitForSeconds (2.0f);
+
+		GameObject.Find ("cellphone_highlight").GetComponent<SpriteRenderer>().enabled = true;
+
+	}
+
 	void InteractiveCallback(int shot)
 	{
 		if (!GlobalVariables.LightGameFinished)
@@ -24,20 +51,20 @@ public class Chapter1StageController : MonoBehaviour {
 		switch (shot) {
 		case 2:
 			// Shot #2
-			shot2.GetComponent<SpriteRenderer>().enabled = true;
+			shot2.GetComponent<Animator>().Play("Chapter1_shot2");
 			break;
 		case 3:
 			// Shot #3
-			shot3.GetComponent<SpriteRenderer>().enabled =true;
+			shot3.GetComponent<Animator>().Play("Chapter1_shot3");
 			break;
 		case 4:
 			// Shot #4
-			shot4.GetComponent<SpriteRenderer>().enabled =true;
+			shot4.GetComponent<Animator>().Play("Chapter1_shot4");
 			break;
 		case 5:
 			// Shot #5
-			shot5.GetComponent<SpriteRenderer> ().enabled = true;
-			GameObject.Find ("cellphone_highlight").GetComponent<SpriteRenderer>().enabled = true;
+			shot5.GetComponent<Animator> ().Play ("Chapter1_shot5");
+			StartCoroutine (ShowShot5());
 			GlobalVariables.WechatGameActive = true;
 			break;
 		default :
@@ -58,9 +85,10 @@ public class Chapter1StageController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0 || Input.GetMouseButtonDown (0)) {
-			if(GlobalVariables.LightGameFinished)
-				InteractiveCallback (++click_num);
+
+		if (GlobalVariables.LightGameFinished && !auto_play) {
+			auto_play = true;
+			StartCoroutine (AutoPlay());
 		}
 
 		if (GlobalVariables.WechatGameFinished) {

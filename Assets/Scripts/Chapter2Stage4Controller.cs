@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Chapter2Stage4Controller : MonoBehaviour {
 
-	private int click_num = 0;
-
 	public new Camera camera;
 
 	public bool finished = false;
@@ -20,36 +18,74 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 	public GameObject arrow;
 	public Rect arrow_frame;
 
+	private bool auto_play = false;
+
+	IEnumerator AutoPlay ()
+	{
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (1);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (2);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (3);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (4);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (5);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (6);
+	}
+
+	IEnumerator ShowArrow()
+	{
+		shot21.GetComponent<Animator>().Play("Chapter2_shot21");
+
+		yield return new WaitForSeconds (2.0f);
+
+		arrow.GetComponent<SpriteRenderer> ().enabled = true;
+		finished = true;
+	}
+
 	void InteractiveCallback(int shot)
 	{
 
 		switch (shot) {
 		case 1:
 			// Shot #16
-			shot16.GetComponent<SpriteRenderer>().enabled = true;
+			shot16.GetComponent<Animator>().Play("Chapter2_shot16");
 			break;
 		case 2:
 			// Shot #17
-			shot17.GetComponent<SpriteRenderer>().enabled =true;
+			shot17.GetComponent<Animator>().Play("Chapter2_shot17");
 			break;
 		case 3:
 			// Shot #18
-			shot18.GetComponent<SpriteRenderer>().enabled =true;
+			shot18.GetComponent<Animator>().Play("Chapter2_shot18");
 			break;
 		case 4:
 			// Shot #19
-			shot19.GetComponent<SpriteRenderer> ().enabled = true;
+			shot19.GetComponent<Animator>().Play("Chapter2_shot19");
 			break;
 
 		case 5:
 			// Shot #20
-			shot20.GetComponent<SpriteRenderer> ().enabled = true;
+			shot20.GetComponent<Animator>().Play("Chapter2_shot20");
 			break;
 		case 6:
 			// Shot #21
-			shot21.GetComponent<SpriteRenderer> ().enabled = true;
-			arrow.GetComponent<SpriteRenderer> ().enabled = true;
-			finished = true;
+
+			StartCoroutine (ShowArrow());
 			break;
 		default :
 			break;
@@ -64,18 +100,18 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 		int FinalScores=0, Chapter1Scores=0, Chapter2Scores=0;
 
 		// Compute Chapter1 scores
-		if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores < 50)
+		if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores < 20)
 			Chapter1Scores = 0;
-		else if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores >= 50
+		else if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores >= 20
 		         && GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores < 70)
 			Chapter1Scores = 1;
 		else if (GlobalVariables.LightGameScores + GlobalVariables.WechatGameScores >= 70)
 			Chapter1Scores = 2;
 
 		// Compute Chapter2 scores
-		if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores < 50)
+		if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores < 20)
 			Chapter2Scores = 0;
-		else if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores >= 50
+		else if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores >= 20
 		         && GlobalVariables.OptionScores + GlobalVariables.MenuGameScores < 70)
 			Chapter2Scores = 1;
 		else if (GlobalVariables.OptionScores + GlobalVariables.MenuGameScores >= 70)
@@ -121,8 +157,10 @@ public class Chapter2Stage4Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0 || Input.GetMouseButtonDown (0)) {
-			InteractiveCallback (++click_num);
+
+		if (!auto_play) {
+			auto_play = true;
+			StartCoroutine (AutoPlay());
 		}
 
 		Vector3 mouse_pos = camera.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));

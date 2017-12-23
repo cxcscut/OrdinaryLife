@@ -23,8 +23,6 @@ public class Chapter1Shot5Reactor : MonoBehaviour {
 		
 	void GotoWechatGame()
 	{
-		GameObject.Find ("cellphone_highlight").GetComponent<SpriteRenderer>().enabled = false;
-
 		StartCoroutine (Fading("WechatGame",LoadSceneMode.Additive));
 	}
 
@@ -52,6 +50,8 @@ public class Chapter1Shot5Reactor : MonoBehaviour {
 				if (frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y),true) || frame.Contains (new Vector2 (touch_pos.x, touch_pos.y),true)) {
 
 					if (!EnterWechatGame && GlobalVariables.LightGameFinished) {
+
+						GameObject.Find ("cellphone_highlight").GetComponent<SpriteRenderer>().enabled = false;
 
 						EnterWechatGame = true;
 						// Switch scene to wechatGame

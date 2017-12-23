@@ -89,17 +89,21 @@ public class MenuGameController : MonoBehaviour {
 			break;
 		case 3:
 			TotalPrice += dir *  48;
+			/*
 			if(dir==1)
 				// gu fa shen jin kao e --> os2
 				StartCoroutine (ShowOS ("os2"));
+				*/
 			break;
 		case 4:
 			TotalPrice += dir * 48;
 			break;
 		case 5:
+			/*
 			if(dir==1)
 				// bo luo gu lao rou --> os1
 				StartCoroutine (ShowOS ("os1"));
+				*/
 			TotalPrice += dir * 38;
 			break;
 		case 6:
@@ -113,9 +117,11 @@ public class MenuGameController : MonoBehaviour {
 			break;
 		case 8:
 			TotalPrice += dir * 28;
+			/*
 			if(dir==1)
 				// tang cu pai gu --> os3
 				StartCoroutine (ShowOS ("os3"));
+				*/
 			break;
 		case 9:
 			if(dir==1)
@@ -140,9 +146,11 @@ public class MenuGameController : MonoBehaviour {
 			break;
 		case 13:
 			TotalPrice += dir * 68;
+			/*
 			if(dir==1)
 				// bai zhuo xia --> os8
 				StartCoroutine (ShowOS ("os8"));
+				*/
 			break;
 		case 14:
 			TotalPrice += dir * 18;
@@ -206,9 +214,9 @@ public class MenuGameController : MonoBehaviour {
 		GlobalVariables.MenuGameFinished = true;
 
 		if (GlobalVariables.MenuGameScores >= 25)
-			GameObject.Find ("shot5_happy").GetComponent<SpriteRenderer>().enabled =true;
+			GameObject.Find ("shot5_happy").GetComponent<Animator>().Play ("Chapter2_shot5_happy");
 		else
-			GameObject.Find ("shot5_sad").GetComponent<SpriteRenderer>().enabled =true;
+			GameObject.Find ("shot5_sad").GetComponent<Animator>().Play ("Chapter2_shot5_sad");
 
 		StartCoroutine (FadingUnload("MenuGame"));
 	}

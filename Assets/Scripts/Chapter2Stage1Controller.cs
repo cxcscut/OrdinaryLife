@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Chapter2Stage1Controller : MonoBehaviour {
 
-	private int click_num = 0;
-
 	public GameObject shot1;
 	public GameObject shot2;
 	public GameObject shot3;
@@ -20,29 +18,56 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 	public GameObject arrow;
 	public Rect arrow_frame;
 
+	private bool auto_play = false;
+
+	IEnumerator AutoPlay()
+	{
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (1);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (2);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (3);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (4);
+	}
+
+	IEnumerator ShowShot4()
+	{
+		yield return new WaitForSeconds (2.0f);
+		// Display highlighter
+		shot4_highlighter.GetComponent<SpriteRenderer> ().enabled = true;
+		shot4_highlighter.GetComponent<Animator> ().enabled = true;
+	}
+
 	void InteractiveCallback(int shot)
 	{
 		switch (shot) {
 		case 1:
 			// Shot #1
-			shot1.GetComponent<SpriteRenderer>().enabled =true;
+			shot1.GetComponent<Animator>().Play("Chapter2_shot1");
 			break;
 		case 2:
 			// Shot #2
-			shot2.GetComponent<SpriteRenderer>().enabled = true;
+			shot2.GetComponent<Animator>().Play("Chapter2_shot2");
 			break;
 		case 3:
 			// Shot #3
-			shot3.GetComponent<SpriteRenderer>().enabled = true;
+			shot3.GetComponent<Animator>().Play("Chapter2_shot3");
 			break;
 		case 4:
 			// Shot #4
-			shot4.GetComponent<SpriteRenderer> ().enabled = true;
+			shot4.GetComponent<Animator> ().Play ("Chapter2_shot4");
 			GlobalVariables.Shot4Active = true;
 
-			// Display highlighter
-			shot4_highlighter.GetComponent<SpriteRenderer> ().enabled = true;
-			shot4_highlighter.GetComponent<Animator> ().enabled = true;
+			StartCoroutine (ShowShot4());
 			break;
 		default :
 			break;
@@ -72,8 +97,9 @@ public class Chapter2Stage1Controller : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.touchCount > 0 || Input.GetMouseButtonDown (0)) {
-			InteractiveCallback (++click_num);
+		if (!auto_play) {
+			auto_play = true;
+			StartCoroutine (AutoPlay());
 		}
 
 		if (GlobalVariables.MenuGameFinished) {

@@ -516,6 +516,17 @@ public class WechatGameStageController : MonoBehaviour {
 			if (return_frame.Contains (new Vector2 (mouse_pos.x, mouse_pos.y), true)
 			    || return_frame.Contains (new Vector2 (touch_pos.x, touch_pos.y), true)) {
 
+				GameObject.Find ("ReturnButton").GetComponent<Animator>().enabled = false;
+
+				Color color1 = GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().color;
+				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().color = new Color (color1.r,color1.g,color1.g,255);
+
+				Color color2 = GameObject.Find ("Wechat_return_shadow").GetComponent<SpriteRenderer> ().color;
+				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().color = new Color (color2.r,color2.g,color2.g,255);
+
+				Color color3 = GameObject.Find ("Wechat_return").GetComponent<SpriteRenderer> ().color;
+				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().color = new Color (color3.r,color3.g,color3.g,255);
+
 				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = true;
 
 				// Mouse or touchpad pressing 
@@ -534,6 +545,7 @@ public class WechatGameStageController : MonoBehaviour {
 				}
 			} else {
 				GameObject.Find ("Wechat_return_highlight").GetComponent<SpriteRenderer> ().enabled = false;
+				GameObject.Find ("ReturnButton").GetComponent<Animator>().enabled = true;
 			}
 		}
 

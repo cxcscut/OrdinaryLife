@@ -40,10 +40,13 @@ public class GlobalVariables : MonoBehaviour {
 	public const int INTERACTIVE_TYPE_DRAWER = 2;
 	public const int INTERACTIVE_TYPE_VASE = 3;
 
-	public const float text_rolling_speed = 0.01f;
+	public const float text_rolling_speed = 0.018f;
 	public const int MIN_ACTIVE_WIDGET = 2;
 
 	public const float fading_speed = 0.5f;
+
+	// Auto play setting
+	public const float AutoPlayTimeInterval = 2.0f;
 
 	// Player control
 	public const float MovingSpeed = 0.05f;
@@ -55,7 +58,7 @@ public class GlobalVariables : MonoBehaviour {
 	public static int DiaryTextIndex = 1;
 
 	// Wechat game stage
-	public const float TextInterval = 2.0f;
+	public const float TextInterval = 1.5f;
 	public const float UpMovingDistance = 1.1f;
 	public const float UpMovingSpeed = 0.2f;
 	public static bool WechatGameFinished = false;

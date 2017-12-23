@@ -17,6 +17,53 @@ public class LightGameController : MonoBehaviour {
 
 	private float LastTime;
 
+	private int wechat_play_time = 0;
+
+	// Initial time state
+	private int _m = 2, _s1 = 0, _s2 = 0;
+
+	void DisplayTime(int m,int s1,int s2)
+	{
+		int mstr = 20 + _m, s1str = 30 + _s1, s2str = 40 + _s2;
+		int newm = 20 + m, news1 = 30 + s1, news2 = 40 + s2;
+
+		GameObject.Find (mstr.ToString()).GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find (s1str.ToString()).GetComponent<SpriteRenderer> ().enabled = false;
+		GameObject.Find (s2str.ToString()).GetComponent<SpriteRenderer> ().enabled = false;
+
+		GameObject.Find (newm.ToString()).GetComponent<SpriteRenderer> ().enabled = true;
+		GameObject.Find (news1.ToString()).GetComponent<SpriteRenderer> ().enabled = true;
+		GameObject.Find (news2.ToString()).GetComponent<SpriteRenderer> ().enabled = true;
+
+		_m = newm - 20;_s1 = news1 - 30;_s2 = news2- 40;
+	}
+
+	void UpdateCountDown()
+	{
+		float Timepassed = Time.time - LastTime;
+
+		float TimeLeft = 120.0f - Timepassed;
+
+		if (TimeLeft >= 0.0f) {
+			int minites = (int)(TimeLeft / 60);
+
+			int seconds = (int)(TimeLeft - minites * 60);
+
+			DisplayTime (minites, seconds / 10, seconds - (seconds / 10) * 10);
+		} else {
+			GlobalVariables.LightGameFinished = true;
+
+			Debug.Log (GameObject.Find ("BGMplayer") != null);
+
+			if(GameObject.Find ("BGMplayer") != null)
+				GameObject.Find ("BGMplayer").GetComponent<AudioSource> ().Play ();
+
+			camera.GetComponent<AudioSource> ().Stop ();
+
+			StartCoroutine (FadingUnload ("LightGame"));
+		}
+	}
+
 	IEnumerator FadingUnload(string Scene_name)
 	{
 		yield return new WaitForSeconds (GameObject.Find("blackfading").GetComponent<FadingController>().BeginFade(1));
@@ -46,6 +93,9 @@ public class LightGameController : MonoBehaviour {
 		OnStateChange (row,col,game_state);
 		
 		DisplayState (game_state);
+
+		if (VerifyState (game_state))
+			OnSubmit ();
 
 	}
 
@@ -105,32 +155,29 @@ public class LightGameController : MonoBehaviour {
 
 	void OnSubmit()
 	{
-		if (VerifyState (game_state)) {
+		// Compute scores
+		if (Time.time - LastTime < 20.0f) {
+			// no more than 255 seconds
+			GlobalVariables.LightGameScores = 40;
+		} else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
+			// no more than 435 seconds
+			GlobalVariables.LightGameScores = 30;
+		} else if (Time.time - LastTime >= 40.0f && Time.time - LastTime < 60.0f) {
+			// no more than 555 seconds
+			GlobalVariables.LightGameScores = 20;
+		} else if (Time.time - LastTime >= 60.0f && Time.time - LastTime < 120.0f) {
+			// no more than 600 seconds
+			GlobalVariables.LightGameScores = 10;
+		}
 
-			// Compute scores
-			if (Time.time - LastTime < 20.0f) {
-				// no more than 255 seconds
-				GlobalVariables.LightGameScores = 40;
-			} else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
-				// no more than 435 seconds
-				GlobalVariables.LightGameScores = 30;
-			} else if (Time.time - LastTime >= 40.0f && Time.time - LastTime < 60.0f) {
-				// no more than 555 seconds
-				GlobalVariables.LightGameScores = 20;
-			} else if (Time.time - LastTime >= 60.0f && Time.time - LastTime < 120.0f) {
-				// no more than 600 seconds
-				GlobalVariables.LightGameScores = 10;
-			}
+		StartCoroutine (FadingUnload ("LightGame"));
 
-			GlobalVariables.LightGameFinished = true;
-			StartCoroutine (FadingUnload ("LightGame"));
-
-			Debug.Log (GameObject.Find ("BGMplayer") != null);
-
+		if(GameObject.Find("BGMplayer") != null)
 			GameObject.Find ("BGMplayer").GetComponent<AudioSource> ().Play ();
 
-			camera.GetComponent<AudioSource> ().Stop ();
-		}
+		camera.GetComponent<AudioSource> ().Stop ();
+
+		GlobalVariables.LightGameFinished = true;
 	}
 
 	void InitializeState()
@@ -143,6 +190,7 @@ public class LightGameController : MonoBehaviour {
 		};
 	
 		DisplayState (game_state);
+
 	}
 
 	// Use this for initialization
@@ -172,30 +220,34 @@ public class LightGameController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (Time.time - LastTime < 20.0f) {
-			// no more than 255 seconds
-			wechat.Play();
-		} else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
+		UpdateCountDown ();
+
+		if (Time.time - LastTime >= 5.0f && Time.time - LastTime < 20.0f) {
+			if (wechat_play_time == 0) {
+				wechat.Play ();
+				wechat_play_time++;
+			}
+		}
+		else if (Time.time - LastTime >= 20.0f && Time.time - LastTime < 40.0f) {
 			// no more than 435 seconds
-			wechat.Play();
+			if (wechat_play_time == 1) {
+				wechat.Play ();
+				wechat_play_time++;
+			}
 		} else if (Time.time - LastTime >= 40.0f && Time.time - LastTime < 60.0f) {
 			// no more than 555 seconds
-			wechat.Play();
+
+			if (wechat_play_time == 2) {
+				wechat.Play ();
+				wechat_play_time++;
+			}
 		} else if (Time.time - LastTime >= 60.0f && Time.time - LastTime < 120.0f) {
 			// no more than 600 seconds
-			wechat.Play();
-		}
 
-		if (Time.time - LastTime >= GlobalVariables.TimeLimit) {
-			GlobalVariables.LightGameFinished = true;
-
-			Debug.Log (GameObject.Find ("BGMplayer") != null);
-
-			GameObject.Find ("BGMplayer").GetComponent<AudioSource> ().Play ();
-
-			camera.GetComponent<AudioSource> ().Stop ();
-
-			StartCoroutine (FadingUnload ("LightGame"));
+			if (wechat_play_time == 3) {
+				wechat.Play ();
+				wechat_play_time++;
+			}
 		}
 	}
 

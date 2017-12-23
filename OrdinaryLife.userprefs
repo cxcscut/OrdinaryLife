@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Chapter1Shot5Reactor.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="129" Column="3" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\InteractiveScene.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DrawHighLigter.cs" Line="1" Column="1" />
@@ -15,19 +15,19 @@
       <File FileName="Assets\Scripts\FadingController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Chapter2Shot4Interactive.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GlobalVariables.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter2Stage1Controller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter2Stage2Controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Chapter2Stage1Controller.cs" Line="63" Column="55" />
+      <File FileName="Assets\Scripts\Chapter2Stage2Controller.cs" Line="74" Column="31" />
       <File FileName="Assets\Scripts\Option1Controller.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Option2Controller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter1StageController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Chapter1StageController.cs" Line="78" Column="27" />
       <File FileName="Assets\Scripts\Chapter1Shot1Reactor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter1Shot5Reactor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Chapter1Shot5Reactor.cs" Line="54" Column="94" />
       <File FileName="Assets\Scripts\WechatGameStageController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Option3Controller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter2Stage4Controller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Chapter2Stage3Controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Chapter2Stage4Controller.cs" Line="70" Column="57" />
+      <File FileName="Assets\Scripts\Chapter2Stage3Controller.cs" Line="158" Column="6" />
       <File FileName="Assets\Scripts\ResolutionSetting.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuGameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuGameController.cs" Line="219" Column="58" />
       <File FileName="Assets\Scripts\LightGameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DiaryRollingController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EndingSceneController.cs" Line="1" Column="1" />

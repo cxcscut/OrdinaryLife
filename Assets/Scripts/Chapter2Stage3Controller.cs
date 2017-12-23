@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Chapter2Stage3Controller : MonoBehaviour {
 
-	private int click_num = 0;
-
 	public new Camera camera;
 
 	public GameObject shot10;
@@ -23,7 +21,50 @@ public class Chapter2Stage3Controller : MonoBehaviour {
 	public Rect arrow_frame;
 	public Rect frameA,frameB;
 
+	private bool auto_play = false;
 	private bool finish_choice = false,present_active = false;
+
+	IEnumerator AutoPlay()
+	{
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (1);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (2);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (3);
+
+		yield return new WaitForSeconds (GlobalVariables.AutoPlayTimeInterval);
+
+		InteractiveCallback (4);
+	}
+
+	IEnumerator ShowShot1415()
+	{
+		shot14.GetComponent<Animator> ().Play ("Chapter2_shot14");
+
+		yield return new WaitForSeconds (2.0f);
+
+		shot15.GetComponent<Animator> ().Play ("Chapter2_shot15");
+
+		yield return new WaitForSeconds (2.0f);
+
+		arrow.GetComponent<SpriteRenderer>().enabled =true;
+	}
+
+	IEnumerator ShowPresent()
+	{
+		yield return new WaitForSeconds (2.0f);
+
+		presentA.GetComponent<SpriteRenderer> ().enabled = true;
+		presentB.GetComponent<SpriteRenderer> ().enabled = true;
+		presentA_highlight.GetComponent<SpriteRenderer> ().enabled = true;
+		presentB_highlight.GetComponent<SpriteRenderer> ().enabled = true;
+	}
 
 	void InteractiveCallback(int shot)
 	{
@@ -31,23 +72,22 @@ public class Chapter2Stage3Controller : MonoBehaviour {
 		switch (shot) {
 		case 1:
 			// Shot #10
-			shot10.GetComponent<SpriteRenderer>().enabled = true;
+			shot10.GetComponent<Animator>().Play("Chapter2_shot10");
 			break;
 		case 2:
 			// Shot #11
-			shot11.GetComponent<SpriteRenderer>().enabled =true;
+			shot11.GetComponent<Animator>().Play("Chapter2_shot11");
 			break;
 		case 3:
 			// Shot #12
-			shot12.GetComponent<SpriteRenderer>().enabled =true;
+			shot12.GetComponent<Animator>().Play("Chapter2_shot12");
 			break;
 		case 4:
 			// Shot #13
-			shot13.GetComponent<SpriteRenderer> ().enabled = true;
-			presentA.GetComponent<SpriteRenderer> ().enabled = true;
-			presentB.GetComponent<SpriteRenderer> ().enabled = true;
-			presentA_highlight.GetComponent<SpriteRenderer> ().enabled = true;
-			presentB_highlight.GetComponent<SpriteRenderer> ().enabled = true;
+			shot13.GetComponent<Animator> ().Play ("Chapter2_shot13");
+
+			StartCoroutine (ShowPresent());
+
 			present_active = true;
 			break;
 		default :
@@ -58,17 +98,14 @@ public class Chapter2Stage3Controller : MonoBehaviour {
 
 	void OnPresentA()
 	{
-		shot14.GetComponent<SpriteRenderer>().enabled =true;
-		shot15.GetComponent<SpriteRenderer>().enabled =true;
-		arrow.GetComponent<SpriteRenderer>().enabled =true;
+		StartCoroutine (ShowShot1415 ());
+
 		Debug.Log ("A");
 	}
 
 	void OnPresentB()
 	{
-		shot14.GetComponent<SpriteRenderer>().enabled =true;
-		shot15.GetComponent<SpriteRenderer>().enabled =true;
-		arrow.GetComponent<SpriteRenderer>().enabled =true;
+		StartCoroutine (ShowShot1415 ());
 		Debug.Log ("B");
 	}
 
@@ -99,8 +136,10 @@ public class Chapter2Stage3Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0 || Input.GetMouseButtonDown (0)) {
-			InteractiveCallback (++click_num);
+
+		if (!auto_play) {
+			auto_play = true;
+			StartCoroutine (AutoPlay());
 		}
 
 		Vector3 mouse_pos = camera.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0.0f));
