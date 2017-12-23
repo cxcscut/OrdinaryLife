@@ -8,6 +8,7 @@ public class EndingSceneController : MonoBehaviour {
 
 	public GameObject quit,quit_clicked;
 	public GameObject playagain,playagain_clicked;
+	public GameObject ProducerInfo;
 
 	private bool button_lock = false;
 
@@ -127,6 +128,13 @@ public class EndingSceneController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		if (GlobalVariables.EndingType == 3)
+			ProducerInfo.transform.position = new Vector3 (
+				-ProducerInfo.transform.position.x,
+				ProducerInfo.transform.position.y,
+				ProducerInfo.transform.position.z
+			);
+
 		if (GameObject.Find ("BGMplayer") != null) {
 			if (GameObject.Find ("BGMplayer").GetComponent<AudioSource> ().isPlaying)
 				GameObject.Find ("BGMplayer").GetComponent<AudioSource> ().Stop ();
@@ -167,6 +175,11 @@ public class EndingSceneController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (transform.position.y <= 13.0f) {
+			Vector3 move_vector = new Vector3 (0, 1, 0);
+			ProducerInfo.transform.position += move_vector * GlobalVariables.ProducerInfo_rollingspeed;
+		} 
 
 		Vector3 mouse_pos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0.0f));
 		Vector3 touch_pos = Input.touchCount > 0 ? 

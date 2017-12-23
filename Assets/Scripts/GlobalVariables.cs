@@ -86,6 +86,6 @@ public class GlobalVariables : MonoBehaviour {
 	public static int MenuGameScores = 0;
 
 	// Ending
-	public static int EndingType = -1;
-
+	public static int EndingType = 3;
+	public const float ProducerInfo_rollingspeed = 0.008f;
 }
