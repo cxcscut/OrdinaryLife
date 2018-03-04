@@ -1,3 +1,4 @@
 # minigame_Tencent
 
-minigame project of tencent class developed by Unity
+文字剧情导向2D RPG
+
